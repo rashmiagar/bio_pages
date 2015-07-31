@@ -1,0 +1,3 @@
+describe Skill do
+
+end
