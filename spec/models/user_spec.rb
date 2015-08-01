@@ -30,13 +30,26 @@ describe User do
 				@joe = FactoryGirl.create(:user, name: "joe", email: "john@example.com")
 				@john = FactoryGirl.build(:user)
 				expect(@john).to have(1).errors_on(:email)
+				expect(@john.errors_on(:email)).to include("has already been taken")
+			end
+		end
+
+		context 'when a user is created with a not unique email (case insensitive)' do
+			it 'should not be valid' do
+				@joe = FactoryGirl.create(:user, email: "John@example.com")
+				@john = FactoryGirl.build(:user)
+				#expect(@john).to raise_error(ActiveRecord::RecordInvalid)
+				
+				expect(@john).to have(1).errors_on(:email)
+				expect(@john.errors_on(:email)).to include("has already been taken")
 			end
 		end
 
 		context 'when a user is created without an email' do
 			it 'should not be valid' do
 				user.email = nil
-				expect(user).to have(1).errors_on(:email)
+				#expect(user).to have(1).errors_on(:email)
+				expect(user.errors_on(:email)).to include("can't be blank")
 			end
 		end
 

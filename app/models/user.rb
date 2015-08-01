@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   	@@email_regexp = /\A[^@]+@([^@\.]+\.)+[^@\.]+\z/
 
 	validates :name, presence: true, length:{ maximum: 50 }
-	validates :email, presence: true, uniqueness: true, format: { with: @@email_regexp, 
+	validates :email, presence: true, uniqueness: {:case_sensitive => false}, format: { with: @@email_regexp, 
 		message: "not an email" }
 
 
