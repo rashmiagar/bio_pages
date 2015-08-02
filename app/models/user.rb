@@ -1,4 +1,7 @@
 class User < ActiveRecord::Base
+	has_many :user_skills
+	has_many :skills, :through => :user_skills
+
 	attr_accessor :email_regexp
   	@@email_regexp = /\A[^@]+@([^@\.]+\.)+[^@\.]+\z/
 

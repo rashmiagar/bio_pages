@@ -1,5 +1,12 @@
 require 'spec_helper'
 
+def make_user_with_skills(attrs = {})
+	User.create!(attrs) do |u|
+		skill = FactoryGirl.build(:skill)
+		3.times {u.skills << skill}
+	end
+end
+
 describe User do
 	describe "validations" do
 		let(:user) {FactoryGirl.build(:user)}
@@ -58,6 +65,12 @@ describe User do
 				user.email = 'john.example.com'
 				expect(user).to have(1).errors_on(:email)
 			end
+		end
+	end
+
+	describe "relations" do
+		it "should have many relations with skills" do
+			make_user_with_skills(:name => "John", :email => "john@example.com").skills.size.should == 3
 		end
 	end
 end
