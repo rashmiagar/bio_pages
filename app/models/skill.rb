@@ -5,4 +5,16 @@ class Skill < ActiveRecord::Base
 
 	validates :name, presence: true
 	validates :category_id, presence: true
+	#validates :code, presence: true
+
+	#CODE_REGEXP = /[A-Z]+[_]*/
+	#validates :code, format: { with: CODE_REGEXP }
+
+	before_save :generate_code
+
+	def generate_code
+		#all CAPS and snake case of name attribute
+		self.code = name.upcase.gsub(" ", "_")
+		#update_attributes(:code => code)
+	end
 end

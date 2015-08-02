@@ -15,6 +15,8 @@ def make_skills_with_users(attrs = {})
 end
 
 
+
+
 describe Skill do
   describe "validations" do
   	let(:skill) { FactoryGirl.build(:skill) }
@@ -48,25 +50,29 @@ describe Skill do
 
   	context "when skill is created without a code" do
   		it "should not be valid" do
-  			skill.code = nil
-  			expect(skill.errors_on(:code)).to include("can't be blank")
+  			skill = FactoryGirl.create(:skill)
+  			expect(skill.code).to_not be_nil
   		end
   	end
 
   	context "when skill is created with a code of correct format" do
   		it "should be valid" do
-  			skill.code = "RUBY_ON_RAILS"
-  			expect(skill).to be_valid
+        skill = FactoryGirl.create(:skill)
+  			#skill.code = "RUBY_ON_RAILS"
+
+  			expect(skill.code).to eq("RUBY_ON_RAILS")
   		end
   	end
 
-  	context "when skill is created with a code of wrong format" do
-  		it "should not be valid" do
-  			skill.code = "rubyonrails"
-  			expect(skill).to have(1).errors_on(:code)
-  			#check error message
-  		end
-  	end
+  	# context "when skill is created with a code of wrong format" do
+  	# 	it "should not be valid" do
+   #      Skill.stub(:generate_code).and_return("RUBY ON RAILS")
+   #      skill = FactoryGirl.create(:skill, :code => "rubyonrails")
+    
+  	# 		expect(skill).to have(1).errors_on(:code)
+  	# 		#check error message
+  	# 	end
+  	# end
 
   	context "when skill is created without an abbreviation" do
   		it "should be valid" do

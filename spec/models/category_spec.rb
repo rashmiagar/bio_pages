@@ -1,8 +1,5 @@
 require 'spec_helper'
 
-
-
-
 describe Category do
   describe "associations" do
   	it "should have many relations with skills" do
