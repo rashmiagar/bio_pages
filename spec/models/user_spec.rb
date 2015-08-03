@@ -1,10 +1,14 @@
 require 'spec_helper'
 
 def make_user_with_skills(attrs = {})
-	User.create!(attrs) do |u|
-		skill = FactoryGirl.build(:skill)
-		3.times {u.skills << skill}
-	end
+	user = User.create!(attrs)
+		
+	3.times {
+		skill = FactoryGirl.create(:skill)
+		user_skill = FactoryGirl.create(:user_skill, :user_id => user.id, :skill_id => skill.id)
+		#u.user_skills << user_skill
+	}
+	return user
 end
 
 describe User do
@@ -35,7 +39,7 @@ describe User do
 		context 'when a duplicate email address is given' do
 			it 'should not be valid' do
 				joe = FactoryGirl.create(:user, name: "joe", email: "john@example.com")
-				john = FactoryGirl.build(:user)
+				john = FactoryGirl.build(:user, :email => joe.email)
 				expect(john).to have(1).errors_on(:email)
 				expect(john.errors_on(:email)).to include("has already been taken")
 			end
@@ -44,7 +48,7 @@ describe User do
 		context 'when a user is created with a not unique email (case insensitive)' do
 			it 'should not be valid' do
 				joe = FactoryGirl.create(:user, email: "John@example.com")
-				john = FactoryGirl.build(:user)
+				john = FactoryGirl.build(:user, :email => "john@example.com")
 				#expect(@john).to raise_error(ActiveRecord::RecordInvalid)
 				
 				expect(john).to have(1).errors_on(:email)

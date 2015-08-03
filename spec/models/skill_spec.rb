@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'pry'
 
 # def make_skills_with_category(attrs = {})
 # 	Skill.build(attrs) do |s|
@@ -8,10 +9,17 @@ require 'spec_helper'
 # end
 
 def make_skills_with_users(attrs = {})
-  Skill.create!(attrs) do |s|
-    user = FactoryGirl.build(:user)
-    3.times { s.users << user }
-  end
+  s = Skill.create!(attrs)
+    #user = FactoryGirl.build(:user)
+   
+    3.times { 
+      user = FactoryGirl.create(:user)
+      #user_skill = UserSkill.create(:user_id => user.id, :skill_id => s.id, :mastered => true, :description => "description")
+      user_skill = FactoryGirl.create(:user_skill, :user_id => user.id, :skill_id => s.id)
+     # s.users << user_skill.user 
+
+    }
+  return s
 end
 
 

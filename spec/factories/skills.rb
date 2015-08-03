@@ -4,5 +4,6 @@ FactoryGirl.define do
 		s.description "a mvc framework in ruby"
 		s.abbreviation "ROR"
 		s.category_id 1
+		#user
 	end
 end
