@@ -76,5 +76,8 @@ describe User do
 		it "should have many relations with skills" do
 			make_user_with_skills(:name => "John", :email => "john@example.com").skills.size.should == 3
 		end
+		it "should habtm projects" do
+			should have_and_belong_to_many(:projects)
+		end
 	end
 end

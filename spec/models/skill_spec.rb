@@ -106,5 +106,9 @@ describe Skill do
       expect(skill).to respond_to :category
       #make_skills_with_category(:name => "Ruby on rails").category.size.should == 1
     end
+
+    it "should habtm projects" do
+      should have_and_belong_to_many(:projects)
+    end
   end
 end
