@@ -3,7 +3,11 @@ FactoryGirl.define do
 		s.name "ruby on rails"
 		s.description "a mvc framework in ruby"
 		s.abbreviation "ROR"
-		s.category_id 1
-		#user
+		sequence(:category_id) {|n| n}
+		
+		factory :invalid_skill do
+			name nil
+			category_id nil
+		end
 	end
 end
