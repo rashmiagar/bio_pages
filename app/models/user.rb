@@ -1,9 +1,11 @@
 class User < ActiveRecord::Base
-	attr_accessor :email_regexp
-  	@@email_regexp = /\A[^@]+@([^@\.]+\.)+[^@\.]+\z/
+	has_many :user_skills
+	has_many :skills, :through => :user_skills
+	
+  	EMAIL_REGEXP = /\A[^@]+@([^@\.]+\.)+[^@\.]+\z/
 
 	validates :name, presence: true, length:{ maximum: 50 }
-	validates :email, presence: true, uniqueness: {:case_sensitive => false}, format: { with: @@email_regexp, 
+	validates :email, presence: true, uniqueness: {:case_sensitive => false}, format: { with: EMAIL_REGEXP, 
 		message: "not an email" }
 
 
