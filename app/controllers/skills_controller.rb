@@ -8,6 +8,10 @@ class SkillsController < ApplicationController
 
 	end
 
+	def new
+		@skill = Skill.new
+	end
+
 	def create
 		@skill = Skill.new(skill_params)
 		if @skill.save
