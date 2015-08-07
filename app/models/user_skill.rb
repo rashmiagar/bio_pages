@@ -6,12 +6,4 @@ class UserSkill < ActiveRecord::Base
 	validates :skill, :presence => true
 	validates :mastered, :presence => true
 	validates :description, :presence => true
-
-	# before_save :assign_default_attributes
-
-	# protected
-	# 	def assign_default_attributes
-	# 		self.mastered = false
-	# 		self.description = ""
-	# 	end
 end
