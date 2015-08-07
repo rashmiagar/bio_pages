@@ -6,7 +6,7 @@ class Category < ActiveRecord::Base
 	before_save :generate_code
 
 	def generate_code
-		#all CAPS and snake case of name attribute
+		#all CAPS and underscore for spaces
 		self.code = name.upcase.gsub(" ", "_")
 		#update_attributes(:code => code)
 	end

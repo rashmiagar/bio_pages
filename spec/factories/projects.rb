@@ -6,5 +6,10 @@ FactoryGirl.define do
     description "MyString"
     client "MyString"
     date_started "2015-08-03"
+
+    factory :invalid_project do
+    	name nil
+    	description nil
+    end
   end
 end
