@@ -50,5 +50,8 @@ end
 
 group :test do
   gem 'minitest'
+  gem 'database_cleaner'
+  gem 'shoulda'
+  gem 'shoulda-matchers'
 end
 

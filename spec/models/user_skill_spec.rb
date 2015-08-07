@@ -1,7 +1,7 @@
 describe UserSkill do
 	describe "associations" do
 		#user = FactoryGirl.build(:user)
-		user_skill = FactoryGirl.build(:user_skill)
+		let(:user_skill) {FactoryGirl.build(:user_skill)} 
 		it "should belong to user" do
 			user_skill.user = nil
 			user_skill.should_not be_valid
