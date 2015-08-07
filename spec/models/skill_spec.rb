@@ -2,9 +2,9 @@ require 'spec_helper'
 require 'pry'
 
 # def make_skills_with_category(attrs = {})
-# 	Skill.build(attrs) do |s|
+# 	Skill.build(attrs) do |skill|
 #     category = FactoryGirl.build(:category)
-#     s.category = category
+#     skill.category = category
 #   end
 # end
 
