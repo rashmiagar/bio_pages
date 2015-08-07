@@ -45,9 +45,10 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'rspec'
   gem 'factory_girl_rails'
+  gem 'pry'
 end
 
-# group :test do
-#   gem 'rspec'
-# end
+group :test do
+  gem 'minitest'
+end
 
