@@ -5,7 +5,17 @@ class SkillsController < ApplicationController
 
 	def show
 		@skill = Skill.find(params[:id])
+		
+		respond_to do |format|
+			format.js {}
+		  format.html { render layout: !request.xhr? }
+		end
 
+	end
+
+	def show_by_category
+		@skills = Skill.find_all_by_category_id(params[:category_id])
+		render :template => "index"
 	end
 
 	def new

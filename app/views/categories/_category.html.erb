@@ -1,0 +1,6 @@
+<ul id="myTabs" class="list-group nav-tabs" style="float:left">
+  <% for category in @categories %>
+    <li id= <%= category.id%> class="list-group-item" style="border:none"><%= link_to "#{category.name}", "##{category.code}" %>
+    </li>
+  <% end %>
+</ul>

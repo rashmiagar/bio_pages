@@ -14,3 +14,18 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+
+// $(document).on("click", "#skills_pane .modal_pane a", function(){
+//   console.log("sdjflsf");
+// 	alert("hi");
+// 	$.ajax({
+// 		url: $(this).attr("href"),
+// 		complete: function(data){
+// 			alert("hi");
+// 			$(data).appendTo("body");
+// 			$('myModal').modal('show');
+// 		}
+// 	});
+// });
+
+

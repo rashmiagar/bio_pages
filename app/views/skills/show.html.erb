@@ -1,0 +1,21 @@
+<div id="myModal" class="modal fade" style="display:none">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+      	<%= @skill.name %>
+        <button type="button" class="close">&times;</button>
+	  </div>
+	  <div class="modal-body">
+	    <%= @skill.description %>
+		<hr>
+		<h4>Users who have mastered <%= @skill.name %></h4>
+		<%= @skill.users.all %>
+		<hr>
+		<h4>Projects Using <%= @skill.name %></h4>
+	  </div>
+	  <div class="modal-footer">
+	    <button type="button" class="btn btn-default">Close</button>
+	  </div>
+	</div>
+  </div>
+</div>
