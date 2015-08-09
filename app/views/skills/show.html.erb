@@ -9,7 +9,9 @@
 	    <%= @skill.description %>
 		<hr>
 		<h4>Users who have mastered <%= @skill.name %></h4>
-		<%= @skill.users.all %>
+		<% for user in @skill.users %>
+		<%= user.name %>
+		<% end %>
 		<hr>
 		<h4>Projects Using <%= @skill.name %></h4>
 	  </div>

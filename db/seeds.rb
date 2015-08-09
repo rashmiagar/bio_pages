@@ -14,8 +14,8 @@ categories = Category.create([{name: "Gems"}, {name: "Programming Languages"}, {
 
 categories.each do |category|
 	5.times do |i|
-      Skill.create({name: "#{category.name}_Skill#{i}", category_id: category.id, description: "description blah blah blah"} )
+      skill = Skill.create({name: "#{category.name}_Skill#{i}", category_id: category.id, description: "description blah blah blah"} )
+      UserSkill.create({user_id: 1, skill_id: skill.id, mastered: true, description: "skill description blah blah" }) if i==1
     end
 end
 
-UserSkill.create({user_id: 1})
