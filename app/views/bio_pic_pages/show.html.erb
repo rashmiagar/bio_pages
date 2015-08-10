@@ -1,0 +1,104 @@
+
+<% provide(:page_title, "#{@user.name.capitalize} | Cyborg SKill Page") %>
+<div class="container">
+	<!-- Nav tabs -->
+	<h1 style = "text-align: center; color:black; font-size: 36px;">User Skill Page</h1>
+	<ul class="nav nav-tabs" role="tablist">
+		<li role="presentation" class="active">
+			<a href="#basic-info" aria-controls="basic-info" role="tab" data-toggle="tab">Basic Info</a>
+		</li>
+		<li role="presentation">
+			<a href="#skills" aria-controls="skills" role="tab" data-toggle="tab">Skills</a>
+		</li>
+		<li role="presentation">
+			<a href="#projects" aria-controls="projects" role="tab" data-toggle="tab">Projects</a>
+		</li>
+	</ul>
+
+	<!-- Tab panes -->
+	<div class="tab-content">
+		<div role="tabpanel" class="tab-pane active" id="basic-info">
+			<h2><%= @user.name %></h2>
+            <table class= "table table-striped" id="about-us-institute-table" width="100%" cellspacing="0" cellpadding="0" border="0">
+                <tbody>
+                    <tr>
+                        <td width="20%"><b>Designation</b></td>
+                        <td width="80%"><%= @user.designation %></td>
+                    </tr>
+                    <tr>
+                        <td><b>Email Address</b></td>
+                        <td><%= @user.email %></td>
+                    </tr>
+                    <tr>
+                        <td><b>Joined On</b></td>
+                        <td><%= @user.joined_on %></td>
+                    </tr>
+                    <tr>
+                        <td><b>Education Qualification</b></td>
+                        <td><%= @user.education_qualification %></td>
+                    </tr>
+                </tbody>
+            </table>	
+		</div>
+		<div role="tabpanel" class="tab-pane" id="skills">
+			<div class="col-lg-6 col-md-6">
+
+				<h2>Mastered Skills</h2>
+				<% if @user_learning_skills.present? %>
+					<table class= "table table-striped table-bordered">
+						<tbody>
+		                    <% @user_learning_skills.each do |learning_skill| %>
+			                    <tr>
+			                        <td><b><%= link_to learning_skill.name, '#' %></b></td>
+			                    </tr>
+			                <% end %>    
+						</tbody>
+					</table>
+				<% end %>
+			</div>
+			<div class="col-lg-6 col-md-6">
+				<h2>Learning Skills</h2>
+				<% if @user_mastered_skills.present? %>
+					<table class= "table table-striped table-bordered">
+						<tbody>
+		                    <% @user_mastered_skills.each do |mastered_skill| %>
+			                    <tr>
+			                        <td><b><%= link_to mastered_skill.name, '#' %></b></td>
+			                    </tr>
+			                <% end %>
+						</tbody>
+					</table>
+				<% end %>
+			</div>
+		</div>
+		<div role="tabpanel" class="tab-pane" id="projects">
+			<h2>User Projects</h2>
+			<% if @user.try(:projects).present? %>
+				<table class= "table table-striped table-bordered">
+					<thead>
+						<tr>
+		                    <td><b>Project Name</b></td>
+		                    <td><b>Description</b></td>
+		                    <td><b>Started Since</b></td>
+		                    <td><b>Skills Used in the Project by User</b></td>
+		                </tr>
+		                
+					</thead>
+					<tbody>
+	                    <% @user.try(:projects).try(:each) do |project| %>
+		                    
+		                    <tr>
+		                        <td><%= link_to project.name, project_show_url(project.id) %></td>
+		                        <td><%= project.description %></td>
+		                        <td><%= project.date_started %></td>
+		                        <td><%= project.date_started %></td>
+		                    	
+		                    </tr>
+		                    
+		                <% end %>
+					</tbody>
+				</table>
+			<% end %>		
+		</div>
+	</div>
+</div>

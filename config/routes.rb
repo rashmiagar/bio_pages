@@ -1,4 +1,14 @@
 Rails.application.routes.draw do
+  get 'bio_pic_pages/:id/new', :to => 'bio_pic_pages#new', :as => :new_bio_pic_page
+
+  get 'bio_pic_pages/:id/edit', :to => 'bio_pic_pages#edit', :as => :edit_bio_pic_page
+
+  get 'bio_pic_pages/:id/show', :to => 'bio_pic_pages#show', :as => :show_bio_pic_page
+
+  get '/projects', :to => 'projects#index', :as => :projects_index
+  get '/projects/:id', :to => 'projects#show', :as => :project_show
+  get '/skills', :to => 'skills#index', :as => :skills_index
+
   root 'home#landing'
 
   # The priority is based upon order of creation: first created -> highest priority.

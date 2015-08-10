@@ -1,0 +1,30 @@
+body {
+  background: #F7F5EE none repeat scroll 0% 0%;
+  color: black !important;
+}
+.starter-template {
+  padding: 40px 15px;
+  text-align: center;
+}
+
+.users-tab-data p{
+
+	font-weight: bold;
+}
+
+.users-tab-data-row-name{
+	color: #848484;
+	font-size: 13px;
+}
+
+.user-data-row{
+	padding: 0px 0px 25px 0px;
+    border-bottom: 1px solid #F2F2F2;
+}
+
+.tab-heading p{
+	font-size: 22px;
+	font-weight: bold;
+	margin-top: 10px;
+	margin-bottom: 20px;	
+}

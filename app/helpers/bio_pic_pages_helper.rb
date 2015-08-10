@@ -1,0 +1,2 @@
+module BioPicPagesHelper
+end

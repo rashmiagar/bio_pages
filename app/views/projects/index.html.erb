@@ -1,0 +1,26 @@
+<% provide(:page_title, "Projects") %>
+<h1 style = "text-align: center; color:black; font-size: 36px;">Listing Projects</h1>
+<div class="container">
+	<table class="table table-bordered">
+		<thead>
+			<tr>
+		        <td><b>Project Name</b></td>
+		        <td><b>Description</b></td>
+		        <td><b>Started Since</b></td>
+		        <td><b>Client Name</b></td>
+		    </tr>
+		</thead>
+
+		<tbody>
+			<% @projects.each do |project| %>
+	  			<tr>
+		            <td><%= link_to project.name, project_show_url(project.id) %></td>
+		            <td><%= project.description %></td>
+		            <td><%= project.date_started %></td>
+		            <td><%= project.client %></td>
+
+		        </tr>
+		    <% end %>	
+		</tbody>
+	</table>
+</div>
