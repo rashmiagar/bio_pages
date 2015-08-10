@@ -68,7 +68,12 @@ Rails.application.routes.draw do
 
   resources :users
   resources :projects
-  resources :skills
+  resources :skills do
+    collection do
+      get :show_by_category
+    end
+  end
+
   resources :categories
 
 

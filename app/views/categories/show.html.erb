@@ -1,0 +1,29 @@
+<h4><%= @category.name%></h4>
+
+
+
+<ul id="skills_pane"> 
+<% for skill in @skills %>
+  <li id= <%= skill.id %> > <%= link_to "#{skill.name}", skill_path(skill) %> <!--#myModal-->
+  </li>
+<% end %>
+</ul>
+
+<!-- <div id="modal">
+</div> -->
+
+
+ <script type="text/javascript">
+
+//  $("#skills_pane a").on("click", function(){
+//  	var id = $(this).parent().attr("id");
+//  	$.ajax({
+//  		url: "/skills/"+id,
+//  		data: {"id": id},
+//  		complete: function(data){
+//  			$("div #modal").empty().append(data.responseText);
+//  			$('#myModal').modal('show');
+//  		}
+//  	});
+//  });
+//  </script>

@@ -11,4 +11,8 @@ class Category < ActiveRecord::Base
 		#update_attributes(:code => code)
 	end
 
+	def get_skills_by_category
+		self.skills.all
+	end
+
 end

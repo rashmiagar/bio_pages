@@ -11,4 +11,6 @@
 	</tbody>
 </table> -->
 
-<%= render @skills %>
+<% for skill in @skills %>
+  <%= link_to "#{skill.name}", "##{skill.code}" %><br/>
+<% end %> 

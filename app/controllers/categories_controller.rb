@@ -4,8 +4,13 @@ class CategoriesController < ApplicationController
 	end
 
 	def show
-		@categories = Category.find(params[:id])
-
+		@category = Category.find(params[:category_id])
+		@skills = @category.get_skills_by_category
+		respond_to do |format|
+		  format.html { render :index }
+		  format.js { @skills.to_json}
+		  
+		end
 	end
 
 	def create
