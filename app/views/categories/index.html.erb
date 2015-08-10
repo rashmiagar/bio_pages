@@ -1,3 +1,5 @@
+<div class="container">
+<div class="row">
 <div class="col-md-4">
 <div  class="panel panel-default" style="width: 200px; height:100%">
 	<div class="panel-heading"> Categories </div>
@@ -15,6 +17,8 @@
 </div>
    
 </div>
+</div>
+</div>
 
 <script type="text/javascript">
 $("#myTabs a").click(function (e){
@@ -25,7 +29,7 @@ $("#myTabs a").click(function (e){
 	  url: "/categories/"+id,
 	  dataType: "json",
 	  type: "get",
-	  data: {"id": $(this).parent().attr("id")},
+	  data: {"category_id": $(this).parent().attr("id")},
 	  complete: function(response){
 	  	console.log (response);
 	  	  $("#skills_div").empty().append(response.responseText);

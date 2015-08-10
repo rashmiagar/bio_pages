@@ -8,14 +8,18 @@
 
 Category.delete_all
 Skill.delete_all
+UserSkill.delete_all
 ActiveRecord::Base.connection.reset_pk_sequence!("Category")
+ActiveRecord::Base.connection.reset_pk_sequence!("Skill")
+ActiveRecord::Base.connection.reset_pk_sequence!("UserSkill")
 
 categories = Category.create([{name: "Gems"}, {name: "Programming Languages"}, {name: "Databases"}, {name: "Frameworks"}, {name: "Deployment Tools"},{name: "Dev Process"},{name: "Other"} ])
 
 categories.each do |category|
 	5.times do |i|
-      skill = Skill.create({name: "#{category.name}_Skill#{i}", category_id: category.id, description: "description blah blah blah"} )
+      skill = Skill.create({name: "#{category.name}_Skill#{i}", category_id: category.id, description: "This is where the description of the skill will be"} )
       UserSkill.create({user_id: 1, skill_id: skill.id, mastered: true, description: "skill description blah blah" }) if i==1
+      
     end
 end
 

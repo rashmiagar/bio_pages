@@ -14,8 +14,8 @@ class SkillsController < ApplicationController
 	end
 
 	def show_by_category
-		@skills = Skill.find_all_by_category_id(params[:category_id])
-		render :template => "index"
+		@skills = Skill.find_by_category_id(params[:category_id])
+		render "index"
 	end
 
 	def new
