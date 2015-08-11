@@ -21,13 +21,19 @@ categories = Category.create([{name: "Gems"}, {name: "Programming Languages"}, {
 
 categories.each do |category|
 	5.times do |i|
-      skill = Skill.create({name: "#{category.name}_Skill#{i}", category_id: category.id, description: "This is where the description of the skill will be"} )
-      UserSkill.create({user_id: 1, skill_id: skill.id, mastered: true, description: "skill description blah blah" }) if i==1
-      
+      skill = Skill.create({name: "#{category.name}_Skill#{i}", category_id: category.id, description: "This is where the description of the skill will be"} )      
     end
 end
-
 FactoryGirl.create(:user)
+
+User.all.each do |user|
+	Skill.all.each do |skill|
+		
+		UserSkill.create({user_id: user.id, skill_id: skill.id, mastered: true, description: "skill description blah blah" })
+		UserSkill.create({user_id: user.id, skill_id: skill.id, mastered: false, description: "skill description blah blah" })
+	end
+end
+
 
 FactoryGirl.create(:project)
 
