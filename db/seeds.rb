@@ -9,9 +9,13 @@
 Category.delete_all
 Skill.delete_all
 UserSkill.delete_all
+Project.delete_all
+User.delete_all
 ActiveRecord::Base.connection.reset_pk_sequence!("Category")
 ActiveRecord::Base.connection.reset_pk_sequence!("Skill")
 ActiveRecord::Base.connection.reset_pk_sequence!("UserSkill")
+ActiveRecord::Base.connection.reset_pk_sequence!("Project")
+ActiveRecord::Base.connection.reset_pk_sequence!("User")
 
 categories = Category.create([{name: "Gems"}, {name: "Programming Languages"}, {name: "Databases"}, {name: "Frameworks"}, {name: "Deployment Tools"},{name: "Dev Process"},{name: "Other"} ])
 
@@ -23,3 +27,16 @@ categories.each do |category|
     end
 end
 
+FactoryGirl.create(:user)
+
+FactoryGirl.create(:project)
+
+Project.all.each do |project|
+	Skill.all.each do |skill|
+		project.skills << skill
+	end
+
+	User.all.each do |user|
+		project.users << user
+	end
+end

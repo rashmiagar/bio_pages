@@ -1,7 +1,8 @@
 FactoryGirl.define do
+	email = Faker::Internet.email
 	factory :user do |u|
 		u.name "John"
-		sequence(:email) { |n| "john#{n}@example.com"}	
+		u.email email	
 	 	
 	 	factory :invalid_user do
 	 		name nil
