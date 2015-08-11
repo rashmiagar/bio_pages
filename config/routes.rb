@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get '/projects', :to => 'projects#index', :as => :projects_index
   get '/projects/:id', :to => 'projects#show', :as => :project_show
   get '/skills', :to => 'skills#index', :as => :skills_index
+  delete '/sessions', :to => 'sessions#destroy', :as => :destroy_session
 
   root 'home#landing'
 
@@ -73,6 +74,7 @@ Rails.application.routes.draw do
       get :show_by_category
     end
   end
+
 
   resources :categories
 

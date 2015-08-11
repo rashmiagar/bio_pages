@@ -1,6 +1,8 @@
 class SkillsController < ApplicationController
 	def index 
 		@skills = Skill.all
+		@hash = @skills.group_by(&:category)
+		puts @hash.inspect
 	end
 
 	def show
