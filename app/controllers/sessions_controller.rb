@@ -10,8 +10,14 @@ class SessionsController < ApplicationController
       redirect_to show_bio_pic_page_path(current_user), :notice => "Welcome back #{@authorization.name}! You have already signed up."  
     else
       user = User.new :name => auth_hash["info"]["name"], :email => auth_hash["info"]["email"], :uid => auth_hash["uid"]
-      user.save
-      redirect_to show_bio_pic_page_path(current_user.id), :notice => "Hi #{user.name}! You've signed up."
+
+      begin
+        user.save
+        sign_in user
+        redirect_to show_bio_pic_page_path(current_user), :notice => "Hi #{user.name}! You've signed up."
+      rescue Exception => e
+        puts "exception #{e.inspect}"
+      end
     end
   end
 
