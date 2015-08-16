@@ -9,6 +9,8 @@ class Skill < ActiveRecord::Base
 	validates :category_id, presence: true
 	#validates :code, presence: true
 
+	accepts_nested_attributes_for :projects
+
 	#CODE_REGEXP = /[A-Z]+[_]*/
 	#validates :code, format: { with: CODE_REGEXP }
 

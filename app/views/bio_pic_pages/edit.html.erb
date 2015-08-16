@@ -1,2 +1,60 @@
-<h1>BioPicPages#edit</h1>
-<p>Find me in app/views/bio_pic_pages/edit.html.erb</p>
+<div class="container">
+	<%= flash[:message] %>
+	<%= flash[:errors] %>
+  <h4 style = "text-align: center; color:black; font-size: 48px;">Edit User Information</h4>
+  
+  <%= form_for @user, :url => update_bio_pic_page_path ,:html => {:class => "form-horizontal skill_form"} do |f| %>
+    
+    <div class="form-group">
+      <div class="col-lg-4">
+        <label>Educational Qualification</label>
+        <%= f.text_field :education_qualification, :class => "form-control" %>
+      </div>
+    	<div class="col-lg-2">
+    	</div>
+      <div class="col-lg-4">
+        <label>Designation</label>
+        <%= f.text_field :designation, :class => "form-control" %>
+      </div>
+    </div>
+    <hr>
+
+    <h4>Skills </h4>
+	   
+	    <div class="skill-container">
+    	<%= f.fields_for :skills do |builder| %>
+	    <%= render 'skill_fields', :f => builder %>
+	    <% end %>	
+	    <%= link_to_add_fields "Add", f, :skills %>
+	  </div>
+    <hr>
+
+    <h4>Add your project</h4>
+    <% if @projects.present? %>
+    <div class="form-group col-lg-2">
+    	<%= f.fields_for :projects, @projects do |builder| %>
+		    <%= builder.select(:id, options_from_collection_for_select(@projects, :id, :name), :html => {multiple: true, include_blank: true, class: "form-control"}) %>
+		  <% end %>
+		   <% end %>
+    </div><br/>
+ 
+ 
+  <div class="col-lg-6, col-lg-offset-6 ">
+	  <%= f.submit "Save Changes", :class => "btn btn-primary" %>
+  </div>
+
+  <% end %>
+</div>
+
+<script type="text/javascript">
+	function remove_fields(link) {
+	  $(link).prev("input[type=hidden]").val("1");
+	  $(link).closest(".fields").hide();
+	}
+
+	function add_fields(link, association, content) {
+	  var new_id = new Date().getTime();
+	  var regexp = new RegExp("new_" + association, "g");
+	  $(link).parent().before(content.replace(regexp, new_id));
+	}
+</script>

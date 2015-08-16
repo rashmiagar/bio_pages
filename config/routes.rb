@@ -5,6 +5,8 @@ Rails.application.routes.draw do
 
   get 'bio_pic_pages/:id/show', :to => 'bio_pic_pages#show', :as => :show_bio_pic_page
 
+  patch 'bio_pic_pages/:id/update', :to => 'bio_pic_pages#update', :as => :update_bio_pic_page
+
   get '/projects', :to => 'projects#index', :as => :projects_index
   get '/projects/:id', :to => 'projects#show', :as => :project_show
   get '/skills', :to => 'skills#index', :as => :skills_index

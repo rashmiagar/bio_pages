@@ -20,11 +20,10 @@
   border: none;
 }
 
-/*.nav-tabs > li > a:hover {
-  border-color: #337ab7;
-}
-*/
-
 #myTabs > li > a {
 	text-decoration: none;
+}
+.skill_div .form-group {
+	margin-right: 0;
+	margin-left: 0;
 }
