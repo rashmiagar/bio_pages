@@ -1,3 +1,6 @@
+<%= javascript_tag "var autocomplete_items = #{ @autocomplete_items.to_json };" %>
+
+<% if f.object.new_record? %>
      <div class="skill_div fields form-inline">
 	        <div class="form-group">
 	      	  <label>Category</label>
@@ -6,7 +9,7 @@
 	      
 	      <div class="form-group">
 		      <label>Skill</label>
-	        <%= f.text_field :name, :class => "form-control" %>
+	        <%= f.text_field :name, :class => "form-control typeahead" %>
 	      </div>
 	      
 	      <div class="form-group">
@@ -29,9 +32,7 @@
  	          <%= builder.text_field(:description, :class => "form-control") %>
 	        <% end %>
 	      </div>
-	     
-
 	    
-
 	      <%= link_to "Remove", "#", :onclick => "remove_fields(this)" %>
 	    </div>
+	  <% end %>

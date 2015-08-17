@@ -11,6 +11,8 @@ Rails.application.routes.draw do
   get '/projects/:id', :to => 'projects#show', :as => :project_show
   get '/skills', :to => 'skills#index', :as => :skills_index
   delete '/sessions', :to => 'sessions#destroy', :as => :destroy_session
+  get 'typeahead/:query' => 'skills#typeahead'
+
 
   root 'home#landing'
 

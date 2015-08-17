@@ -8,6 +8,7 @@ class BioPicPagesController < ApplicationController
   	@skill = @user.skills.build
   	@user_skill = @user.user_skills.build(:skill => @skill)
   	@projects = Project.all_except(@user.projects)
+    @autocomplete_items = Skill.pluck(:name)
   end
 
   def show
@@ -73,5 +74,6 @@ class BioPicPagesController < ApplicationController
 
  def project_params
    params.require(:user).permit(:skills_attributes, :projects_attributes, :education_qualification, :designation)
- end 
+ end
+
 end
