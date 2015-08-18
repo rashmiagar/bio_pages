@@ -17,27 +17,17 @@
                 </tr>
              </thead>
              <tbody>
-         	   <tr>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-                <td>1/1/2015</td>
+              <% for user in @users %>
+         	      <tr>
+                  <td><%= link_to user.name, show_bio_pic_page_path(user) %></td>
+                  <td><%= user.email %></td>
+                <td><%= user.designation %></td>
+                <td><%= user.joined_on %></td>
                </tr>
-               <tr>
-                 <td>Jacob</td>
-                 <td>Thornton</td>
-                 <td>@fat</td>
-                 <td>1/1/2015</td>
-               </tr>
-               <tr>
-                 <td>Larry</td>
-                 <td>the Bird</td>
-                 <td>@twitter</td>
-                 <td>1/1/2015</td>
-               </tr>
-			 </tbody>
-			</table>
-          </div>
+               <% end %>
+			       </tbody>
+			     </table>
+        </div>
         <!-- </div>
       </div> -->
     </div>
