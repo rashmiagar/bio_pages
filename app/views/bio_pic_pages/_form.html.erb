@@ -1,45 +1,92 @@
 <div class="container">
-      <div class="header clearfix">
-        <nav>
-          <ul class="nav nav-pills pull-right">
-            <li role="presentation" class="active"><a href="#">Home</a></li>
-            <li role="presentation"><a href="#">About</a></li>
-            <li role="presentation"><a href="#">Contact</a></li>
-          </ul>
-        </nav>
-        <h3 class="text-muted">Project name</h3>
+  <%= flash[:message] %>
+  <%= flash[:errors] %>
+  <h4 style = "text-align: center; color:black; font-size: 48px;">Edit User Information</h4>
+  <%= render :partial => 'projects/form_modal' %>
+  <% @user.skills.each do |skill| %>
+    <%= render :partial => 'skills/edit_user_skill_modal', :locals => {:user_skill_id => skill.user_skill(@user.id).id} %>
+  <% end %>
+  <%= form_tag(send("#{params[:action] == 'new' ? 'create' : 'update'}_bio_pic_page_path", @user.id) , :class => "form-horizontal skill_form", :method => "post") do %>
+    
+    <div class="form-group">
+      <div class="col-lg-12">
+        <label>Educational Qualification</label>
+        <%= text_field_tag 'bio_pic_pages[user][education_qualification]','', :class => "form-control" %>
       </div>
 
-      <div class="jumbotron">
-        <h1>Jumbotron heading</h1>
-        <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-        <p><a class="btn btn-lg btn-success" href="#" role="button">Sign up today</a></p>
+      <div class="col-lg-12">
+        <label>Designation</label>
+        <%= text_field_tag 'bio_pic_pages[user][designation]', '', :class => "form-control" %>
       </div>
-
-      <div class="row marketing">
-        <div class="col-lg-6">
-          <h4>Subheading</h4>
-          <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
-
-          <h4>Subheading</h4>
-          <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
-
-          <h4>Subheading</h4>
-          <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
-        </div>
-
-        <div class="col-lg-6">
-          <h4>Subheading</h4>
-          <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
-
-          <h4>Subheading</h4>
-          <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
-
-          <h4>Subheading</h4>
-          <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
-        </div>
+    </div>
+    
+    <div class="form-group">
+      <div class="col-lg-12">
+        <h3>Skills </h3>
       </div>
+    </div>
 
-      <footer class="footer">
-        <p>&copy; Company 2014</p>
-      </footer>
+    <div class="col-lg-12">
+      <% if ["edit", "update"].include?(params[:action]) && @user.skills.present? %>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th><b>Skill Name</b></th>
+              <th><b>Category</b></th>
+              <th><b>Learning Level</b></th>
+              <th colspan="2"><b>Actions</b></th>
+              </tr>
+          </thead>
+
+          <tbody>
+            <% @user.skills.each do |skill| %>
+              <tr id='<%= "user_skill_table_row_#{skill.user_skill(@user.id).id}" %>'>
+                <td><%= skill.name %></td>
+                <td><%= skill.category.name %></td>
+                <td id="user_skill_<%= skill.user_skill(@user.id).id %>_learning_level"><%= skill.user_skill(@user.id).mastered? ? "Mastered" : "Learning" %></td>
+                <td><%= link_to 'Update', '#', :id => "update_user_skill_#{skill.user_skill(@user.id).id}" %></td>
+                <td><%= link_to 'Remove', remove_user_skill_url(skill.user_skill(@user.id).id), :remote => true, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+
+              </tr>
+              <script type="text/javascript">
+                $(document).on("click", "#update_user_skill_<%= skill.user_skill(@user.id).id %>", function(){
+                  $.ajax({
+                    url: $(this).attr("href"),
+                    complete: function(data){
+
+                      //$(data).appendTo("body");
+                      $('#user_skill_<%= skill.user_skill(@user.id).id %>').modal('show');
+                    }
+                  });
+                });
+              </script>
+            <% end %> 
+          </tbody>
+        </table>
+      <% end %> 
+    </div> 
+
+    <div class="col-lg-12">
+      <h4>Add More Skills</h4>
+      <div class="skill-container">
+        <%= render :partial => 'skill_fields' %>
+      </div>
+      <hr>
+    </div>
+    <div class="col-lg-12">
+      <h3>Add your project</h3>
+      <hr>
+      <% if @projects.present? %>
+      <div class="form-group col-lg-2">
+        <%= select_tag('bio_pic_pages[user_projects]', options_from_collection_for_select(@projects, :id, :name), multiple: true, :prompt => 'Select', :class => "form-control skills-section-projects-dropdown") %>
+        <% end %>
+      <%= link_to "Add new project", "#", :id => "new_project_pane" %>
+      </div>
+    </div>
+
+    <br/>
+    <div class="form-group col-lg-12">
+    <%= submit_tag "Save Changes", :class => "btn btn-primary" %>
+    </div>
+  <% end %>
+</div>

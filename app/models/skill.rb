@@ -1,6 +1,6 @@
 class Skill < ActiveRecord::Base
 	has_many :user_skills
-	has_one :user_skill
+	
 	has_many :users, :through => :user_skills
 	belongs_to :category
 	has_and_belongs_to_many :projects
@@ -21,4 +21,9 @@ class Skill < ActiveRecord::Base
 		self.code = name.upcase.gsub(" ", "_")
 		#update_attributes(:code => code)
 	end
+
+	def user_skill(user_id)
+		UserSkill.find_by_user_id_and_skill_id(user_id, self.id)
+	end
+
 end

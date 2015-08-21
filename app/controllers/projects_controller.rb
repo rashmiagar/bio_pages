@@ -1,6 +1,7 @@
 class ProjectsController < ApplicationController
 	def index 
 		@projects = Project.all
+		
 	end
 
 	def show
@@ -9,12 +10,11 @@ class ProjectsController < ApplicationController
 	end
 
 	def create
+		# binding.pry
 		@project = Project.new(project_params)
-		if @project.save
-			render "index"
-		else
-			# puts @project.errors.messages
-			render "new"
+		@project.save
+		respond_to do |format|
+			format.js
 		end
 	end
 
@@ -42,6 +42,6 @@ class ProjectsController < ApplicationController
 	private 
 
 	def project_params
-		params.require(:project).permit(:name, :description)
+		params.require(:project).permit(:name, :description, :client, :date_started)
 	end 
 end

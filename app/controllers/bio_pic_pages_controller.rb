@@ -1,12 +1,16 @@
 class BioPicPagesController < ApplicationController
   before_action :set_user
+  
   def new
+    @projects = Project.all_except(@user.projects)
+  end
+
+  def create
+    binding.pry
   end
 
   def edit
-  	@user = current_user
-  	@skill = @user.skills.build
-  	@user_skill = @user.user_skills.build(:skill => @skill)
+  	@user = User.find(params[:id])
   	@projects = Project.all_except(@user.projects)
     @autocomplete_items = Skill.pluck(:name)
   end
@@ -19,20 +23,9 @@ class BioPicPagesController < ApplicationController
   def update
   	@user = current_user 
   
-  	puts params[:user][:education_qualification]
-  	puts params[:user][:skills_attributes]
-  	puts params[:user][:skills_attributes][:user_skills]
-  	puts params[:user][:projects_attributes]
   	binding.pry
 
-  	if params[:user][:education_qualification].present?
-      @user.update_attributes!(:education_qualification => params[:user][:education_qualification])
-    end
-    if params[:user][:designation].present?
-      @user.update_attributes(:designation => params[:user][:designation])
-    end
-  	binding.pry
-
+  	
 
   	skill_array = params[:user][:skills_attributes]
 
