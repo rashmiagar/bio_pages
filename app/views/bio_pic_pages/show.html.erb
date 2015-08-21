@@ -49,7 +49,7 @@
 						<tbody>
 		                    <% @user_learning_skills.each do |learning_skill| %>
 			                    <tr>
-			                        <td><b><%= link_to learning_skill.name, '#' %></b></td>
+			                        <td><b><%= link_to learning_skill.name, skill_path(learning_skill) %></b></td>
 			                    </tr>
 			                <% end %>    
 						</tbody>
@@ -63,7 +63,7 @@
 						<tbody>
 		                    <% @user_mastered_skills.each do |mastered_skill| %>
 			                    <tr>
-			                        <td><b><%= link_to mastered_skill.name, '#' %></b></td>
+			                        <td><b><%= link_to mastered_skill.name, skill_path(mastered_skill) %></b></td>
 			                    </tr>
 			                <% end %>
 						</tbody>

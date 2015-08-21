@@ -95,7 +95,13 @@ var my_Suggestion_class = new Bloodhound({
       //     return {value: item};
       // })
       remote: {
-            url: "/typeahead?q=%QUERY&category_id=44",
+            url: "/typeahead",
+           replace: function(url, uriEncodedQuery) {
+            // How to change this to denominator for denominator queries?
+            var categoryID = $('#user_skills_attributes_1_category_id').val();
+   
+            return url + "?q="+uriEncodedQuery+ "&category_id=" + encodeURIComponent(categoryID)
+            },
             filter: function(skills) {
                 console.log(skills);
                 return $.map(skills, function(item) {
@@ -103,7 +109,6 @@ var my_Suggestion_class = new Bloodhound({
                   return {value: item};
                 });
             },
-            wildcard: "%QUERY"
         }
   });
 
