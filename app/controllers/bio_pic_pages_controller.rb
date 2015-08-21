@@ -23,7 +23,7 @@ class BioPicPagesController < ApplicationController
   	puts params[:user][:skills_attributes]
   	puts params[:user][:skills_attributes][:user_skills]
   	puts params[:user][:projects_attributes]
-  	binding.pry
+  
 
   	if params[:user][:education_qualification].present?
       @user.update_attributes!(:education_qualification => params[:user][:education_qualification])
@@ -31,8 +31,6 @@ class BioPicPagesController < ApplicationController
     if params[:user][:designation].present?
       @user.update_attributes(:designation => params[:user][:designation])
     end
-  	binding.pry
-
 
   	skill_array = params[:user][:skills_attributes]
 

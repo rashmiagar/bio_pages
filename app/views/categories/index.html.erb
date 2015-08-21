@@ -35,7 +35,7 @@ $("#myTabs a").click(function (e){
 	  url: "/categories/"+id,
 	  dataType: "json",
 	  type: "get",
-	  data: {"category_id": $(this).parent().attr("id")},
+	  data: {"id": $(this).parent().attr("id")},
 	  complete: function(response){
 	  	console.log (response);
 	  	  $("#skills_div").empty().append(response.responseText);

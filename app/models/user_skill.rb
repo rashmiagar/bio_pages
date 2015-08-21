@@ -6,6 +6,6 @@ class UserSkill < ActiveRecord::Base
 	validates :skill_id, :presence => true
 	validates :mastered, :presence => true
 	validates :description, :presence => true
-
+	validates_uniqueness_of :user_id, scope: :skill_id
 	
 end

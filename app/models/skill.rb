@@ -1,6 +1,5 @@
 class Skill < ActiveRecord::Base
 	has_many :user_skills
-	has_one :user_skill
 	has_many :users, :through => :user_skills
 	belongs_to :category
 	has_and_belongs_to_many :projects
