@@ -1,17 +1,17 @@
 describe UserSkill do
 	describe "associations" do
 		#user = FactoryGirl.build(:user)
-		let(:user_skill) {FactoryGirl.build(:user_skill)} 
+		let(:user_skill) {FactoryGirl.build(:invalid_user_skill)} 
 		it "should belong to user" do
-			user_skill.user = nil
+			#user_skill.user = nil
 			user_skill.should_not be_valid
-			expect(user_skill).to have(1).errors_on(:user)
-			expect(user_skill.errors_on(:user)).to include("can't be blank")
+			expect(user_skill).to have(1).errors_on(:user_id)
+			expect(user_skill.errors_on(:user_id)).to include("can't be blank")
 		end
 		it "should belong to skill" do
-			user_skill = UserSkill.new(:skill => nil)
+			#user_skill = UserSkill.new(:skill => nil)
 			user_skill.should_not be_valid
-			expect(user_skill.errors_on(:skill)).to include("can't be blank")
+			expect(user_skill.errors_on(:skill_id)).to include("can't be blank")
 		end
 		context "should belong to one user and one skill" do
 			before(:each) do

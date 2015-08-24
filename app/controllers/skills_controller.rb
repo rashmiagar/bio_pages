@@ -6,8 +6,8 @@ class SkillsController < ApplicationController
 	end
 
 	def show
-		@skill = Skill.find(params[:id])
-		
+		@skill = Skill.find(params[:id]) 
+
 		respond_to do |format|
 			format.js {}
 		  format.html { render layout: !request.xhr? }
@@ -59,7 +59,7 @@ class SkillsController < ApplicationController
 
 	def typeahead
     	puts "In controller ***********"
-      render json: Skill.where('name ilike ?', "%#{params[:query]}%")
+      render json: Skill.where('name ilike ?', "%#{params[:q]}%").where("category_id = ?", params[:category_id].to_i).pluck(:name)
     end
 
 	private 

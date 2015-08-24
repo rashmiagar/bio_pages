@@ -1,26 +1,3 @@
-<!-- <div id="myModal" class="modal fade" style="display:none">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-      	<%#= @skill.name %>
-        <button type="button" class="close">&times;</button>
-	  </div>
-	  <div class="modal-body">
-	    <%= @skill.description %>
-		<hr>
-		<h4>Users who have mastered <%= @skill.name %></h4>
-		<%# for user in @skill.users %>
-		<%#= user.name %>
-		<%# end %>
-		<hr>
-		<h4>Projects Using <%= @skill.name %></h4>
-	  </div>
-	  <div class="modal-footer">
-	    <button type="button" class="btn btn-default">Close</button>
-	  </div>
-	</div>
-  </div>
-</div> -->
 <div class="container">
   <h4><%= @skill.name %></h4>
   <div><%= @skill.description %></div>
@@ -43,29 +20,13 @@
             </tr>
           </thead>
           <tbody>
-          	<%# for user in @skill.users %>
-  		    <!-- <tr>
-  		  	  <td><%#= user.name %></td>
-  		  	  <td><%#= user.email %></td>
-  		  	  <td><%#= user.designation %></td>
-  		    </tr> -->
-
-  		    <%# end %>
+            <% for user in @skill.user_skills.master_users %>
   		        <tr>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
-                </tr>
-                <tr>
-                  <td>Jacob</td>
-                  <td>Thornton</td>
-                  <td>@fat</td>
-                </tr>
-                <tr>
-                  <td>Larry</td>
-                  <td>the Bird</td>
-                  <td>@twitter</td>
-                </tr>
+  		  	      <td><%= link_to user.name, show_bio_pic_page_path(user) %></td>
+  		  	      <td><%= user.email %></td>
+  		  	      <td><%= user.designation %></td>
+  		        </tr>
+            <% end %>
   		  </tbody>
         </table>
       </div>
@@ -89,29 +50,13 @@
             </tr>
           </thead>
           <tbody>
-          	<!-- <%# for user in @skill.users %>
-  		    <tr>
-  		  	  <td><%#= user.name %></td>
-  		  	  <td><%#= user.email %></td>
-  		  	  <td><%#= user.designation %></td>
-  		    </tr>
-  		     --><%# end %>
-
-  		    <tr>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
-                </tr>
-                <tr>
-                  <td>Jacob</td>
-                  <td>Thornton</td>
-                  <td>@fat</td>
-                </tr>
-                <tr>
-                  <td>Larry</td>
-                  <td>the Bird</td>
-                  <td>@twitter</td>
-                </tr>
+            <% for user in @skill.user_skills.learner_users %>
+  		        <tr>
+  		  	      <td><%= user.name %></td>
+  		  	      <td><%= user.email %></td>
+  		  	      <td><%= user.designation %></td>
+  		        </tr>
+  		     <% end %>
   		  </tbody>
         </table>
       </div>
@@ -135,26 +80,13 @@
             </tr>
           </thead>
           <tbody>
-          <!-- 	<%# for project in @skill.projects %>
-  		    <tr>
-  		  	  <td><%#= project.name %></td>
-  		  	  <td><%#= project.description %></td>
-  		    </tr>
-  		    <%# end %>
-  		   -->
-  		   <tr>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                </tr>
-                <tr>
-                  <td>Jacob</td>
-                  <td>Thornton</td>
-                </tr>
-                <tr>
-                  <td>Larry</td>
-                  <td>the Bird</td>
-                </tr>
-  		</tbody>
+            <% for project in @skill.projects %>
+  		        <tr>
+  		  	      <td><%= link_to project.name, project_path(project) %></td>
+  		  	      <td><%= project.description %></td>
+  		        </tr>
+  		      <% end %>
+  		    </tbody>
         </table>
       </div>
     </div>

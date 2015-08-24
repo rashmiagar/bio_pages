@@ -1,6 +1,6 @@
 class Skill < ActiveRecord::Base
 	has_many :user_skills
-	
+
 	has_many :users, :through => :user_skills
 	belongs_to :category
 	has_and_belongs_to_many :projects
@@ -14,6 +14,8 @@ class Skill < ActiveRecord::Base
 	#CODE_REGEXP = /[A-Z]+[_]*/
 	#validates :code, format: { with: CODE_REGEXP }
 
+    #scope :masters, -> includes(:users).where("users.user_skills.where(mastered => true)}
+
 	before_save :generate_code
 
 	def generate_code
@@ -26,4 +28,17 @@ class Skill < ActiveRecord::Base
 		UserSkill.find_by_user_id_and_skill_id(user_id, self.id)
 	end
 
+	def masters
+	  self.users.each do |user|
+        user.user_skills.where(mastered:true)
+	  end
+	end
+
+	def learners
+		result = []
+	  self.users.each do |user|
+        result << user.user_skills.where(mastered:false)
+	  end
+	  return result
+	end
 end

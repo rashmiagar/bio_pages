@@ -54,6 +54,7 @@ group :development, :test do
   gem 'rspec'
   gem 'factory_girl_rails'
   gem 'pry'
+  gem 'pry-nav'
 end
 
 group :test do

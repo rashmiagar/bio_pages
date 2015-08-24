@@ -4,7 +4,7 @@ class CategoriesController < ApplicationController
 	end
 
 	def show
-		@category = Category.find(params[:category_id])
+		@category = Category.find(params[:id])
 		@skills = @category.get_skills_by_category
 		respond_to do |format|
 		  format.html { render :index }
