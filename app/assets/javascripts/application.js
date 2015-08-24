@@ -29,6 +29,10 @@ $(document).on("click", "#new_project_pane", function(){
 	});
 });
 
+$(document).on('click', function(){
+
+});
+
 
 function remove_fields(link) {
 	  $(link).prev("input[type=hidden]").val("1");

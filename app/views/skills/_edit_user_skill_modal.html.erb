@@ -16,9 +16,10 @@
             <div style="clear:both !important;"></div>
             
             <div class="form-group">
-              <%= radio_button_tag("bio_pic_pages[user_skills][#{user_skill_id}][mastered]", true, :class => "radio-inline") %>
+              <%= radio_button_tag("bio_pic_pages[user_skills][#{user_skill_id}][mastered]", true, :class => "radio-inline", :checked => user_skill.mastered? ? "checked" : "") %>
               <%= label_tag(:mastered, "Mastered") %>
-              <%= radio_button_tag("bio_pic_pages[user_skills][#{user_skill_id}][mastered]", false, {:class => "radio-inline", :checked => true}) %>
+
+              <%= radio_button_tag("bio_pic_pages[user_skills][#{user_skill_id}][mastered]", false, {:class => "radio-inline", :checked => !user_skill.mastered? ? "checked" : ""}) %>
               <%= label_tag(:learning, "Learning") %>
             </div>
             <div style="clear:both;"></div>
@@ -35,7 +36,7 @@
         <% end %>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default">Close</button>
+        <button type="button" class="btn btn-default" aria-label="Close" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>

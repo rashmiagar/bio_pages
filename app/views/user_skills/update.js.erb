@@ -1,4 +1,5 @@
 $(document).ready(function(){
+	$('.form-submit-message').html('User Skill updated successfully !!');
 	$('#user_skill_<%= @user_skill.id %>_learning_level').html("<%= @user_skill.mastered ? 'Mastered' : 'Learning' %>");
 });
 

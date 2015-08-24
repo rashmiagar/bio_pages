@@ -1,13 +1,5 @@
 class BioPicPagesController < ApplicationController
   before_action :set_user
-  
-  def new
-    @projects = Project.all_except(@user.projects)
-  end
-
-  def create
-    binding.pry
-  end
 
   def edit
   	@user = User.find(params[:id])
@@ -16,47 +8,45 @@ class BioPicPagesController < ApplicationController
   end
 
   def show
-  	@user_mastered_skills = @user.skills.group_by{|skill| skill.user_skill.mastered}[true]
-  	@user_learning_skills = @user.skills.group_by{|skill| skill.user_skill.mastered}[false]
+
+  	@user_mastered_skills = @user.skills.group_by{|skill| skill.user_skill(@user.id).mastered}[true]
+  	@user_learning_skills = @user.skills.group_by{|skill| skill.user_skill(@user.id).mastered}[false]
   end
   
   def update
-  	@user = current_user 
-  
-  	binding.pry
+  	@user = User.find(params[:id])
+    @user.update_columns({:designation => params["bio_pic_pages"]["user"]["designation"], :education_qualification => params["bio_pic_pages"]["user"]["education_qualification"]})
 
-  	
-
-  	skill_array = params[:user][:skills_attributes]
+  	skills = params[:bio_pic_pages][:user_skills]
 
     # has_many through
   	begin
-  	  unless skill_array["0"][:name].empty?
-	    skill_array.size.times do |i|
-		  skill = Skill.find_or_create_by(name: skill_array[i.to_s][:name]) do |skill|
-			skill.category_id = skill_array[i.to_s][:category_id]
-		  end
-		
-		  @user.user_skills.create!(:skill_id => skill.id, :mastered => skill_array[i.to_s][:user_skills][:mastered], :description => skill_array[i.to_s][:user_skills][:description])
+      skills.each do |key, value|
+        name = value["name"]
+        skill_db_object = Skill.find_by_name(name)
+        if !skill_db_object.present? 
+          skill = Skill.create(name: name, :category_id => value["category_id"].to_i)
+          @user.user_skills.create!(:skill_id => skill.id, :mastered => value["mastered"] == "true" ? 0 : 1, :description => value["description"])
+        else
+          @user.user_skills.create!(:skill_id => skill_db_object.id, :mastered => value["mastered"] == "true" ? 0 : 1, :description => value["description"])
 
-		  # HABTM projects_skills table
-		  skill.project_ids << skill_array[i.to_s][:project_attributes][:project_id]
-	    end
+        end
       end
-  rescue ActiveRecord::RecordInvalid => e
-  	flash[:errors] = e.message
-  	render 'edit'
-  end
-  
-  # HABTM  projects_users table
-  if params[:user].has_key?(:projects_attributes)
-    params[:user][:projects_attributes].size.times do |id| 
-      @user.projects << Project.find(params[:user][:projects_attributes][id.to_s][:id])
-    end
-  end
+      # HABTM  projects_users table
+      if params[:bio_pic_pages].has_key?(:user_projects)
+        selected_projects = Project.where(:id => [params[:bio_pic_pages][:user_projects]])
+        selected_projects.each do |selected_project|
+          @user.projects << selected_project if !@user.projects.include?(selected_project)
+        end
+      end
 
-    flash[:message] = "Profile updated successfully"
-    render 'edit'
+      flash[:message] = "Profile updated successfully"
+      redirect_to show_bio_pic_page_path(@user.id), :notice => "User Bio Pic Page updated successfully."
+
+    rescue ActiveRecord::RecordInvalid => e
+      flash[:errors] = e.message
+      redirect_to edit_bio_pic_page_path(@user.id)
+    end
   end
 
  private
