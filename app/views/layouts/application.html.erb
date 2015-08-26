@@ -10,10 +10,13 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+
 	<% if signed_in? %>
 	  <%= render :partial => "layouts/header" %>
 	<% end %>
+  
 <%= yield %>
+
 <%= render :partial => "layouts/footer" %>
 
 </body>

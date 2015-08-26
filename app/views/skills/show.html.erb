@@ -4,7 +4,7 @@
   
   <hr>
   <div class="row">
-  <div class="col-lg-4">
+  <div class="col-lg-6">
   <div class="panel panel-default">
     <div class="panel-heading">
       Masters
@@ -20,7 +20,7 @@
             </tr>
           </thead>
           <tbody>
-            <% for user in @skill.user_skills.master_users %>
+            <% for user in @skill.masters %>
   		        <tr>
   		  	      <td><%= link_to user.name, show_bio_pic_page_path(user) %></td>
   		  	      <td><%= user.email %></td>
@@ -34,7 +34,7 @@
   </div>
 </div>
 
-  <div class="col-lg-4">
+  <div class="col-lg-6">
   <div class="panel panel-default">
     <div class="panel-heading">
       Learners
@@ -49,13 +49,15 @@
               <th>Designation</th>
             </tr>
           </thead>
-          <tbody>
-            <% for user in @skill.user_skills.learner_users %>
+            <% for user in @skill.learners %>
+            <%# binding.pry %>
+              <% if user.present? %>
   		        <tr>
   		  	      <td><%= user.name %></td>
   		  	      <td><%= user.email %></td>
   		  	      <td><%= user.designation %></td>
   		        </tr>
+              <% end %>
   		     <% end %>
   		  </tbody>
         </table>

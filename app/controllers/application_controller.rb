@@ -34,4 +34,13 @@ class ApplicationController < ActionController::Base
     self.current_user=nil
     session[:user_id]=nil
   end
+
+  private
+
+  def authorize
+    unless signed_in?
+      flash[:danger] = "You need to sign in before continuing"
+      redirect_to root_url
+    end
+  end
 end

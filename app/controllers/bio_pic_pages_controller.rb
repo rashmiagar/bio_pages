@@ -1,4 +1,6 @@
 class BioPicPagesController < ApplicationController
+  before_filter :authorize
+
   before_action :set_user
 
   def edit
@@ -24,11 +26,13 @@ class BioPicPagesController < ApplicationController
       skills.each do |key, value|
         name = value["name"]
         skill_db_object = Skill.find_by_name(name)
+        binding.pry
         if !skill_db_object.present? 
+          binding.pry
           skill = Skill.create(name: name, :category_id => value["category_id"].to_i)
-          @user.user_skills.create!(:skill_id => skill.id, :mastered => value["mastered"] == "true" ? 0 : 1, :description => value["description"])
+          @user.user_skills.create!(:skill_id => skill.id, :mastered => value["mastered"], :description => value["description"])
         else
-          @user.user_skills.create!(:skill_id => skill_db_object.id, :mastered => value["mastered"] == "true" ? 0 : 1, :description => value["description"])
+          @user.user_skills.create!(:skill_id => skill_db_object.id, :mastered => value["mastered"], :description => value["description"])
 
         end
       end
