@@ -1,6 +1,11 @@
 require 'spec_helper'
 
 describe ProjectsController do
+	before :each do
+		@user = FactoryGirl.create(:user)
+		set_user_session @user
+	end
+
 	describe "GET #index" do
 		context "with valid attributes" do
 			it "populates an array of projects" do
@@ -45,25 +50,33 @@ describe ProjectsController do
 	end
 
 	describe "POST #create" do
+		before :each do
+			post :create, project: FactoryGirl.attributes_for(:project), :format => :js
+		end
+
 		context "with valid attributes" do
 			it "saves the project in the database" do
 				expect{
-					post :create, project: FactoryGirl.attributes_for(:project)
+					post :create, project: FactoryGirl.attributes_for(:project), :format => :js
 				}.to change(Project, :count).by(1)	
 			end
 
 			it "assigns @project" do
-				post :create, project: FactoryGirl.attributes_for(:project)
+				# post :create, project: FactoryGirl.attributes_for(:project)
 				expect(assigns(:project)).to_not be_nil
 			end
 
 			it "redirects to index page" do
-				post :create, project: FactoryGirl.attributes_for(:project)
-				expect(response).to render_template :index
+				# post :create, project: FactoryGirl.attributes_for(:project)
+				expect(response).to render_template :create
 			end
 		end	
 
 		context "with invalid attributes" do
+			before :each do
+				post :create, project: FactoryGirl.attributes_for(:invalid_project)
+			end
+
 			it "does not save the project in the database" do
 				expect{
 					post :create, project: FactoryGirl.attributes_for(:invalid_project)
@@ -73,12 +86,12 @@ describe ProjectsController do
 
 			# please check this 
 			it "assigns @project to be nil" do
-				post :create, project: FactoryGirl.attributes_for(:invalid_project)
+				# post :create, project: FactoryGirl.attributes_for(:invalid_project)
 				expect(assigns(:invalid_project)).to be_nil
 			end
 
 			it "re-renders the new template" do
-				post :create, project: FactoryGirl.attributes_for(:invalid_project)
+				# post :create, project: FactoryGirl.attributes_for(:invalid_project)
 				expect(response).to render_template :new
 			end
 		end

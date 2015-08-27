@@ -14,10 +14,13 @@ class ProjectsController < ApplicationController
 	def create
 		# binding.pry
 		@project = Project.new(project_params)
-		@project.save
+		if @project.save
 		respond_to do |format|
 			format.js
 		end
+		else
+			render 'new'
+		end 
 	end
 
 	def edit

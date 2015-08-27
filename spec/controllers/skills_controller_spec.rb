@@ -1,6 +1,11 @@
 require 'spec_helper'
 
 describe SkillsController do
+	before :each do
+		@user = FactoryGirl.create(:user)
+		set_user_session @user
+	end
+	
 	describe "GET #index" do
 		context "with valid attributes" do
 			it "populates an array of skills" do
