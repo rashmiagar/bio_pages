@@ -4,8 +4,9 @@ class Skill < ActiveRecord::Base
 	has_many :users, :through => :user_skills
 	belongs_to :category
 	has_and_belongs_to_many :projects
+	
+	validates :name, :presence => true, :uniqueness => {:case_sensitive => false}
 
-	validates :name, presence: true
 	validates :category_id, presence: true
 	#validates :code, presence: true
 

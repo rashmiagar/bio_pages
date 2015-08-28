@@ -88,7 +88,7 @@
       <div class="form-group col-lg-2">
         <%= select_tag('bio_pic_pages[user_projects]', options_from_collection_for_select(@projects, :id, :name), multiple: true, :prompt => 'Select', :class => "form-control skills-section-projects-dropdown") %>
         <% end %>
-      <%= link_to "Add new project", "#", :id => "new_project_pane" %>
+      <%= link_to "Add new project", "#", :id => "new_project_pane", :remote => true %>
       </div>
     </div>
 
