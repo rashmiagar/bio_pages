@@ -14,6 +14,10 @@ gem 'coffee-rails', '~> 4.1.0'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
+gem 'twitter-typeahead-rails'
+gem 'bootstrap-multiselect-rails'
+
+
 #gem 'omniauth-google-apps'  
 gem 'omniauth-google-oauth2'
 
@@ -50,6 +54,7 @@ group :development, :test do
   gem 'rspec'
   gem 'factory_girl_rails'
   gem 'pry'
+  gem 'pry-nav'
 end
 
 group :test do

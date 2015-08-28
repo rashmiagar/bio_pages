@@ -1,14 +1,20 @@
 Rails.application.routes.draw do
-  get 'bio_pic_pages/:id/new', :to => 'bio_pic_pages#new', :as => :new_bio_pic_page
-
   get 'bio_pic_pages/:id/edit', :to => 'bio_pic_pages#edit', :as => :edit_bio_pic_page
 
   get 'bio_pic_pages/:id/show', :to => 'bio_pic_pages#show', :as => :show_bio_pic_page
 
+  post 'bio_pic_pages/:id/update', :to => 'bio_pic_pages#update', :as => :update_bio_pic_page
+
+
+  post '/projects/create', :to => 'projects#create', :as => :project_create
   get '/projects', :to => 'projects#index', :as => :projects_index
   get '/projects/:id', :to => 'projects#show', :as => :project_show
   get '/skills', :to => 'skills#index', :as => :skills_index
+  delete '/user-skills/:id/remove', :to => 'user_skills#destroy', :as => :remove_user_skill
   delete '/sessions', :to => 'sessions#destroy', :as => :destroy_session
+  get 'typeahead' => 'skills#typeahead'
+
+  post '/user-skills/:id/update', :to => 'user_skills#update', :as => :update_user_skill
 
   root 'home#landing'
 

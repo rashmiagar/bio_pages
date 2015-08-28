@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
 
   helper_method :signed_in?, :current_user
 
+  before_action :authenticate, :except => :landing
   def current_user
   	@current_user ||= User.find_by(id: session[:user_id])
   end
@@ -21,7 +22,7 @@ class ApplicationController < ActionController::Base
   def authenticate
     if signed_in?
     else
-      redirect_to user_session_new_url, :notice => "Please Sign in."
+      redirect_to root_url, :notice => "Please Sign in."
     end
   end
 
@@ -33,5 +34,15 @@ class ApplicationController < ActionController::Base
   def sign_out
     self.current_user=nil
     session[:user_id]=nil
+  end
+
+  private
+
+  def authorize
+    
+    unless signed_in? && params[:id].to_i == current_user.id
+      
+      redirect_to root_url, :notice => "Permission Denied!!" 
+    end
   end
 end

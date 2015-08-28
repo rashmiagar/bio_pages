@@ -19,14 +19,14 @@ describe CategoriesController do
 	describe "GET #show" do
 		it "assigns the requested category to @category" do
 			category = FactoryGirl.create(:category)
-			get :show, id: category
-			expect(assigns(:categories)).to eq(category)
+			get :show, :id => category.id
+			expect(assigns(:category)).to eq(category)
 		end
 
 		it "redirects to show page" do
 			category = FactoryGirl.create(:category)
 			get :show, id: category
-			expect(response).to render_template :show
+			expect(response).to render_template :index
 		end
 	end
 

@@ -1,13 +1,15 @@
+<div class="panel panel-info">
+	<div class="panel-heading">
 <h4><%= @category.name%></h4>
-
-
-
+</div>
+<div class="panel-body">
 <ul id="skills_pane"> 
 <% for skill in @skills %>
   <li id= <%= skill.id %> > <%= link_to "#{skill.name}", skill_path(skill) %> <!--#myModal-->
   </li>
 <% end %>
 </ul>
+</div></div>
 
 <!-- <div id="modal">
 </div> -->

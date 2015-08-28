@@ -13,11 +13,11 @@ def make_skills_with_users(attrs = {})
     #user = FactoryGirl.build(:user)
    
     3.times { 
-      user = FactoryGirl.create(:user)
+      email_id = Faker::Internet.email
+      user = FactoryGirl.create(:user, :email => email_id )
       #user_skill = UserSkill.create(:user_id => user.id, :skill_id => s.id, :mastered => true, :description => "description")
       user_skill = FactoryGirl.create(:user_skill, :user_id => user.id, :skill_id => s.id)
      # s.users << user_skill.user 
-
     }
   return s
 end

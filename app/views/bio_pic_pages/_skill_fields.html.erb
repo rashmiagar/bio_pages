@@ -1,0 +1,119 @@
+<%#= javascript_tag "var autocomplete_items = #{ @autocomplete_items.to_json };" %>
+
+
+<div class="skill_div fields form-inline">
+  <div class="new-skill-field-row-0">
+    <div class="form-group">
+  	  <label>Category</label>
+      <%= select_tag('bio_pic_pages[user_skills][0][category_id]', options_from_collection_for_select(Category.all, :id, :name))%>
+    </div>
+    
+    <div class="form-group">
+      <label>Skill</label>
+      <%= text_field_tag 'bio_pic_pages[user_skills][0][name]', '', :class => "form-control typeahead" %>
+    </div>
+    
+    <div class="form-group">
+  	  <%= radio_button_tag('bio_pic_pages[user_skills][0][mastered]', true, false, {:class => "radio-inline"}) %>
+      <%= label_tag(:mastered, "Mastered") %>
+      <%= radio_button_tag('bio_pic_pages[user_skills][0][mastered]', false, true, {:class => "radio-inline"}) %>
+      <%= label_tag(:learning, "Learning") %>
+    </div>
+
+    <!-- <div class="form-group">
+      
+      <%#= select_tag('bio_pic_pages[user_skills][0][project_id]', options_from_collection_for_select(Project.all, :id, :name), class: "form-control skills-section-projects-dropdown") %>
+    </div>
+
+    <div class="form-group">
+      <%#= text_field_tag('bio_pic_pages[user_skills][0][description]', '', :class => "form-control") %>
+    </div> -->
+
+  	<%= link_to "Remove", "#", :onclick => '$(this).parent().remove();', :remote => true %>
+  </div>  
+</div>
+<br />
+<br />
+<%= link_to "Add", '#', :id => 'add_more_skills', :remote => true %>
+<script type="text/javascript">
+
+  $.fn.replaceOptions = function(options) {
+    var self, $option;
+    this.empty();
+    self = this;
+    $.each(options, function(index, option) {
+      $option = $("<option></option>").attr("value", option.id).text(option.name);
+      self.append($option);
+    });
+  };
+	$(document).ready(function(){
+		var skill_number = 1;
+    $("#add_more_skills").click(function(){
+			$('.skill_div').append("<div class = 'new-skill-field-row-"+skill_number+"'><br /><div class='form-group'> <div class='form-group'> <label>Category</label> <select name='bio_pic_pages[user_skills]["+ skill_number +"][category_id]' class='bio_pic_pages_user_skills_"+skill_number+"_category_id'> <% Category.all.each do |category| %> <option value='<%= category.id %>'><%= category.name %></option> <% end %> </select> </div> <div class='form-group'> <label>Skill</label> <span style='position: relative; display: inline-block;' class='twitter-typeahead'><input dir='ltr' tabindex='-1' spellcheck='false' autocomplete='off' readonly='' style='position: absolute; top: 0px; left: 0px; border-color: transparent; box-shadow: none; opacity: 1; background: rgb(255, 255, 255) none repeat scroll 0% 0%;' value='' class='form-control typeahead tt-hint' type='text'><input style='position: relative; vertical-align: top; background-color: transparent;' dir='auto' spellcheck='false' autocomplete='off' name='bio_pic_pages[user_skills]["+ skill_number +"][name]' id='bio_pic_pages_user_skills_"+skill_number+"_name' value='' class='form-control typeahead tt-input' type='text'><pre style='position: absolute; visibility: hidden; white-space: pre; font-family: &quot;Helvetica Neue&quot;,Helvetica,Arial,sans-serif; font-size: 14px; font-style: normal; font-variant: normal; font-weight: 400; word-spacing: 0px; letter-spacing: 0px; text-indent: 0px; text-rendering: optimizelegibility; text-transform: none;' aria-hidden='true'></pre><div style='position: absolute; top: 100%; left: 0px; z-index: 100; display: none;' class='tt-menu'><div class='tt-dataset tt-dataset-best-pictures'></div></div></span> </div> <div class='form-group'> <input name='bio_pic_pages[user_skills]["+ skill_number +"][mastered]' id='bio_pic_pages_user_skills_"+skill_number+"_mastered_true' value='true' checked='checked' type='radio'> <label for='mastered'>Mastered</label> <input name='bio_pic_pages[user_skills]["+ skill_number +"][mastered]' id='bio_pic_pages_user_skills_"+skill_number+"_mastered_false' value='false' checked='checked' type='radio'> <label for='learning'>Learning</label> </div> <!--<div class='form-group'> <select name='bio_pic_pages[user_skills]["+ skill_number +"][project_id]' id='bio_pic_pages_user_skills_"+skill_number+"_project_id' class='form-control skills-section-projects-dropdown'></select> </div> <div class='form-group'> <input name='bio_pic_pages[user_skills]["+ skill_number +"][description]' id='bio_pic_pages_user_skills_"+skill_number+"_description' value='' class='form-control' type='text'> </div>--> <a onclick ='$(this).parent().remove();' href='#' data-remote = 'true'>Remove</a></div></div>"); 
+		    
+      $.get( "/projects.json", function( data ) {
+        $('.skills-section-projects-dropdown').replaceOptions(data);
+      });
+	   // // $('#bio_pic_pages_user_skills_'+skill_number+'_name').
+     
+     console.log("*******");
+     console.log(skill_number);
+     // debugger
+     var str = ".new-skill-field-row-"+skill_number;
+      var elem = $(str + " select" );
+     var new_Suggestion_class = new Bloodhound({
+      datumTokenizer: function(datum) { return Bloodhound.tokenizers.obj.whitespace(datum.value);},
+      queryTokenizer: Bloodhound.tokenizers.whitespace,
+      // local: $.map(country_list, function(item) {
+      //     console.log(item);
+      //     return {value: item};
+      // })
+      remote: {
+            url: "/typeahead",
+           replace: function(url, uriEncodedQuery) {
+            // How to change this to denominator for denominator queries?
+            // var categoryID = $('#user_skills_attributes_1_category_id').val();
+            // debugger
+             var categoryID = elem.val();
+             console.log('hello');
+            return url + "?q="+uriEncodedQuery+ "&category_id=" + encodeURIComponent(categoryID)
+            },
+            filter: function(skills) {
+                console.log(skills);
+                return $.map(skills, function(item) {
+                   console.log(item);
+                  return {value: item};
+                });
+            },
+        }
+  });
+ 
+  new_Suggestion_class.initialize();
+
+        var typeahead_elem = $('#bio_pic_pages_user_skills_'+skill_number+'_name');
+        console.log(typeahead_elem);
+        // typeahead_elem.typeahead({
+        //     hint: true,
+        //     highlight: true,
+        //     minLength: 1
+        // },
+        // {
+        //   name: 'skills',
+        //   displayKey: 'value',
+        //   source: new_Suggestion_class.ttAdapter(),
+        //   templates: {
+        //     suggestion: Handlebars.compile("<p style='padding:6px'><img width=50'> <b>{{value}}</b></p>"),
+        //     footer: Handlebars.compile("<b>Searched for '{{query}}'</b>"),
+        //      empty: [
+        //         '<div class="noitems">',
+        //         'No Items Found',
+        //         '</div>'
+        //     ].join('\n')
+        //   },
+        //   engine: Handlebars
+        // });
+        skill_number++;
+    });
+	});
+
+</script>

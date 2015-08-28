@@ -11,5 +11,5 @@ class User < ActiveRecord::Base
 	validates :email, presence: true, uniqueness: {:case_sensitive => false}, format: { with: EMAIL_REGEXP, 
 		message: "not an email" }
 
-
+  accepts_nested_attributes_for :skills, :user_skills, :projects
 end

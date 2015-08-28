@@ -2,16 +2,29 @@
 <html>
 <head>
   <title><%= raw(full_title(yield(:page_title))) %></title>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+   <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
+
 	<% if signed_in? %>
 	  <%= render :partial => "layouts/header" %>
 	<% end %>
-<%= yield %>
-<%= render :partial => "layouts/footer" %>
+  <div class="container">
+    <% if notice && params[:action] != "landing" %>
+      <div class= "alert alert-warning">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <%= notice %>
+      </div>
+    <% end %>
+  </div>
+  <%= yield %>
+
+  <%= render :partial => "layouts/footer" %>
 
 </body>
 </html>

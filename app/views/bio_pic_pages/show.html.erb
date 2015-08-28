@@ -44,12 +44,12 @@
 			<div class="col-lg-6 col-md-6">
 
 				<h2>Mastered Skills</h2>
-				<% if @user_learning_skills.present? %>
+				<% if @user_mastered_skills.present? %>
 					<table class= "table table-striped table-bordered">
 						<tbody>
-		                    <% @user_learning_skills.each do |learning_skill| %>
+		                    <% @user_mastered_skills.each do |mastered_skill| %>
 			                    <tr>
-			                        <td><b><%= link_to learning_skill.name, skill_path(learning_skill) %></b></td>
+			                        <td><b><%= link_to mastered_skill.name, skill_path(mastered_skill) %></b></td>
 			                    </tr>
 			                <% end %>    
 						</tbody>
@@ -58,12 +58,12 @@
 			</div>
 			<div class="col-lg-6 col-md-6">
 				<h2>Learning Skills</h2>
-				<% if @user_mastered_skills.present? %>
+				<% if @user_learning_skills.present? %>
 					<table class= "table table-striped table-bordered">
 						<tbody>
-		                    <% @user_mastered_skills.each do |mastered_skill| %>
+		                    <% @user_learning_skills.each do |learning_skill| %>
 			                    <tr>
-			                        <td><b><%= link_to mastered_skill.name, skill_path(mastered_skill) %></b></td>
+			                        <td><b><%= link_to learning_skill.name, skill_path(learning_skill) %></b></td>
 			                    </tr>
 			                <% end %>
 						</tbody>
@@ -80,7 +80,7 @@
 		                    <td><b>Project Name</b></td>
 		                    <td><b>Description</b></td>
 		                    <td><b>Started Since</b></td>
-		                    <td><b>Skills Used in the Project by User</b></td>
+		                    <!-- <td><b>Skills Used in the Project by User</b></td> -->
 		                </tr>
 		                
 					</thead>
@@ -91,7 +91,7 @@
 		                        <td><%= link_to project.name, project_show_url(project.id) %></td>
 		                        <td><%= project.description %></td>
 		                        <td><%= project.date_started %></td>
-		                        <td></td>
+		                        <!-- <td></td> -->
 		                    	
 		                    </tr>
 		                    

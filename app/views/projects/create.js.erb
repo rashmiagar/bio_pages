@@ -1,0 +1,9 @@
+$(document).ready(function(){
+	<% if @project.id.present? %>
+		$('.skills-section-projects-dropdown').html("<% Project.all.each do |project| %><option value = '<%= project.id %>'><%= project.name %></option><% end %>")
+		$('.form-submit-message').html('Project successfully created');
+	<% else %>
+		$('.form-submit-message').html('Project creation failed<ul><%@project.errors.full_messages.each do |full_message|%><li><%= full_message %></li><% end %></ul>');
+	<% end %>	
+		
+});

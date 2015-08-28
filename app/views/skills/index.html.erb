@@ -12,7 +12,9 @@
 	    <tbody>
 
           <%# for skill in @skills %>
+          <%# binding.pry %>
             <% @hash.each do |category, skills| %>
+            <%# binding.pry %>
               <tr><th colspan="2" style="text-align: center"><%= category.name %></th></tr>
             <% for skill in skills %>
               <tr>
@@ -20,6 +22,7 @@
   	            <td><%= skill.description %></td>
               </tr>  
             <% end %>
+
             <% end %> 
         </tbody>
       </table>
