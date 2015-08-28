@@ -14,11 +14,10 @@
           <%# for skill in @skills %>
           <%# binding.pry %>
             <% @hash.each do |category, skills| %>
-            <%# binding.pry %>
               <tr><th colspan="2" style="text-align: center"><%= category.name %></th></tr>
             <% for skill in skills %>
               <tr>
-  	            <td style="width: 40px"><%= link_to "#{skill.name}", skill_path(skill) %><br/></td>
+  	            <td style="width: 40px"><%= link_to skill.name.titleize, skill_path(skill) %><br/></td>
   	            <td><%= skill.description %></td>
               </tr>  
             <% end %>

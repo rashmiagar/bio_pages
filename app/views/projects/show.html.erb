@@ -35,7 +35,7 @@
     		<tbody>
                 <% @project.skills.each do |skill| %>
                     <tr>
-                        <td><%= link_to skill.name, skill_path(skill) %></td>
+                        <td><%= link_to skill.name.titleize, skill_path(skill) %></td>
                     	<td><%= skill.description %></td>
                     	<td><%= skill.category.name %></td>
                     </tr>
