@@ -8,14 +8,14 @@
         <p class="form-submit-message"></p>
         <%= form_for :project, :url => project_create_path ,:html => {:class => "form-horizontal skill_form", :method => 'post', :remote => true}  do |f| %>
           <%= f.label "Name"%>
-          <%= f.text_field :name, :class => "form-control" %>
+          <%= f.text_field :name, :class => "form-control", :style => "margin-bottom: 10px;" %>
           <%= f.label "Description" %>
-          <%= f.text_field :description, :class => "form-control" %>
+          <%= f.text_field :description, :class => "form-control", :style => "margin-bottom: 10px;" %>
           <%= f.label "Client" %>
-          <%= f.text_field :client, :class => "form-control" %>
+          <%= f.text_field :client, :class => "form-control", :style => "margin-bottom: 20px;" %>
           <%= f.label "Date started" %>
           <%= f.text_field :date_started %><br/>
-          <%= f.submit "Add Project", :class => "btn btn-success" %>
+          <%= f.submit "Add Project", :class => "btn btn-success", :style => "margin-bottom: 10px;" %>
         <% end %>
       </div>
       <div class="modal-footer">
