@@ -6,8 +6,8 @@ class SkillsController < ApplicationController
 	end
 
 	def show
-		@skill = Skill.find(params[:id])
-		
+		@skill = Skill.find(params[:id]) 
+
 		respond_to do |format|
 			format.js {}
 		  format.html { render layout: !request.xhr? }
