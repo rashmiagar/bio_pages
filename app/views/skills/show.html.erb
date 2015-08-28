@@ -66,6 +66,7 @@
   		  	      <td><%= project.description %></td>
   		        </tr>
   		      <% end %>
+            <p><%= "There are no projects which are using this skill" if @skill.projects.empty? %></p>
   		    </tbody>
         </table>
       </div>
