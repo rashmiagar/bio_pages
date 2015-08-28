@@ -92,3 +92,16 @@
     </div>
   <% end %>
 </div>
+<script type="text/javascript">
+  $(document).on("click", "#new_project_pane", function(){
+  
+    $.ajax({
+      url: $(this).attr("href"),
+      complete: function(data){
+
+        //$(data).appendTo("body");
+        $('#myModal').modal('show');
+      }
+    });
+  });
+</script>
