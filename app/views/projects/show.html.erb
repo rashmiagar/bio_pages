@@ -23,24 +23,28 @@
     </table>
 
 	<h3>Skills Used in the Project</h3>
-	<table class= "table table-striped table-bordered">
-		<thead>
-			<tr>
-				<td><b>Skill Name</b></td>
-				<td><b>Description</b></td>
-				<td><b>Skill Category</b></td>
-			</tr>
-		</thead>
-		<tbody>
-            <% @project.skills.each do |skill| %>
-                <tr>
-                    <td><%= link_to skill.name, skill_path(skill) %></td>
-                	<td><%= skill.description %></td>
-                	<td><%= skill.category.name %></td>
-                </tr>
-            <% end %>    
-		</tbody>
-	</table>
+    <% if @project.skills.present? %>
+        <table class= "table table-striped table-bordered">
+    		<thead>
+    			<tr>
+    				<td><b>Skill Name</b></td>
+    				<td><b>Description</b></td>
+    				<td><b>Skill Category</b></td>
+    			</tr>
+    		</thead>
+    		<tbody>
+                <% @project.skills.each do |skill| %>
+                    <tr>
+                        <td><%= link_to skill.name, skill_path(skill) %></td>
+                    	<td><%= skill.description %></td>
+                    	<td><%= skill.category.name %></td>
+                    </tr>
+                <% end %>    
+    		</tbody>
+    	</table>
+    <% else %>
+        <p>There are no skills used in the project.</p>
+    <% end %>        
 
 	<hr>
 	<h3>Members in the Project</h3>
