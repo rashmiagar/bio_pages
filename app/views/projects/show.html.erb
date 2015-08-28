@@ -48,24 +48,28 @@
 
 	<hr>
 	<h3>Members in the Project</h3>
-	<table class= "table table-striped table-bordered">
-		<thead>
-			<tr>
-				<td><b>Name</b></td>
-				<td><b>Email</b></td>
-				<td><b>Designation</b></td>
-				<td><b>Educational Qualification</b></td>
-			</tr>
-		</thead>
-		<tbody>
-            <% @project.users.each do |user| %>
-                <tr>
-                    <td><%= link_to user.name, show_bio_pic_page_path(user.id) %></td>
-                	<td><%= user.email %></td>
-                	<td><%= user.designation %></td>
-                	<td><%= user.education_qualification %></td>
-                </tr>
-            <% end %>    
-		</tbody>
-	</table>
+    <% if @project.skills.present? %>	
+        <table class= "table table-striped table-bordered">
+    		<thead>
+    			<tr>
+    				<td><b>Name</b></td>
+    				<td><b>Email</b></td>
+    				<td><b>Designation</b></td>
+    				<td><b>Educational Qualification</b></td>
+    			</tr>
+    		</thead>
+    		<tbody>
+                <% @project.users.each do |user| %>
+                    <tr>
+                        <td><%= link_to user.name, show_bio_pic_page_path(user.id) %></td>
+                    	<td><%= user.email %></td>
+                    	<td><%= user.designation %></td>
+                    	<td><%= user.education_qualification %></td>
+                    </tr>
+                <% end %>    
+    		</tbody>
+    	</table>
+    <% else %>
+        <p>There are no members in the project.</p>
+    <% end %>    
 </div>
