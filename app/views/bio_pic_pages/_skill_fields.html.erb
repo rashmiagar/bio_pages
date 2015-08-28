@@ -56,62 +56,60 @@
       });
 	   // // $('#bio_pic_pages_user_skills_'+skill_number+'_name').
      
-     console.log("*******");
-     console.log(skill_number);
-     // debugger
-     var str = ".new-skill-field-row-"+skill_number;
-      var elem = $(str + " select" );
-     var new_Suggestion_class = new Bloodhound({
-      datumTokenizer: function(datum) { return Bloodhound.tokenizers.obj.whitespace(datum.value);},
-      queryTokenizer: Bloodhound.tokenizers.whitespace,
-      // local: $.map(country_list, function(item) {
-      //     console.log(item);
-      //     return {value: item};
-      // })
-      remote: {
-            url: "/typeahead",
-           replace: function(url, uriEncodedQuery) {
-            // How to change this to denominator for denominator queries?
-            // var categoryID = $('#user_skills_attributes_1_category_id').val();
-            // debugger
-             var categoryID = elem.val();
-             console.log('hello');
-            return url + "?q="+uriEncodedQuery+ "&category_id=" + encodeURIComponent(categoryID)
-            },
-            filter: function(skills) {
-                console.log(skills);
-                return $.map(skills, function(item) {
-                   console.log(item);
-                  return {value: item};
-                });
-            },
-        }
-  });
+     
+ //     var str = ".new-skill-field-row-"+skill_number;
+ //      var elem = $(str + " select" );
+ //     var new_Suggestion_class = new Bloodhound({
+ //      datumTokenizer: function(datum) { return Bloodhound.tokenizers.obj.whitespace(datum.value);},
+ //      queryTokenizer: Bloodhound.tokenizers.whitespace,
+ //      // local: $.map(country_list, function(item) {
+ //      //     console.log(item);
+ //      //     return {value: item};
+ //      // })
+ //      remote: {
+ //            url: "/typeahead",
+ //           replace: function(url, uriEncodedQuery) {
+ //            // How to change this to denominator for denominator queries?
+ //            // var categoryID = $('#user_skills_attributes_1_category_id').val();
+ //            // debugger
+ //             var categoryID = elem.val();
+ //             console.log('hello');
+ //            return url + "?q="+uriEncodedQuery+ "&category_id=" + encodeURIComponent(categoryID)
+ //            },
+ //            filter: function(skills) {
+ //                console.log(skills);
+ //                return $.map(skills, function(item) {
+ //                   console.log(item);
+ //                  return {value: item};
+ //                });
+ //            },
+ //        }
+ //  });
  
-  new_Suggestion_class.initialize();
+ //  new_Suggestion_class.initialize();
 
-        var typeahead_elem = $('#bio_pic_pages_user_skills_'+skill_number+'_name');
-        console.log(typeahead_elem);
-        // typeahead_elem.typeahead({
-        //     hint: true,
-        //     highlight: true,
-        //     minLength: 1
-        // },
-        // {
-        //   name: 'skills',
-        //   displayKey: 'value',
-        //   source: new_Suggestion_class.ttAdapter(),
-        //   templates: {
-        //     suggestion: Handlebars.compile("<p style='padding:6px'><img width=50'> <b>{{value}}</b></p>"),
-        //     footer: Handlebars.compile("<b>Searched for '{{query}}'</b>"),
-        //      empty: [
-        //         '<div class="noitems">',
-        //         'No Items Found',
-        //         '</div>'
-        //     ].join('\n')
-        //   },
-        //   engine: Handlebars
-        // });
+ //        var typeahead_elem = $('#bio_pic_pages_user_skills_'+skill_number+'_name');
+ //        console.log(typeahead_elem);
+ //        // typeahead_elem.typeahead({
+ //        //     hint: true,
+ //        //     highlight: true,
+ //        //     minLength: 1
+ //        // },
+ //        // {
+ //        //   name: 'skills',
+ //        //   displayKey: 'value',
+ //        //   source: new_Suggestion_class.ttAdapter(),
+ //        //   templates: {
+ //        //     suggestion: Handlebars.compile("<p style='padding:6px'><img width=50'> <b>{{value}}</b></p>"),
+ //        //     footer: Handlebars.compile("<b>Searched for '{{query}}'</b>"),
+ //        //      empty: [
+ //        //         '<div class="noitems">',
+ //        //         'No Items Found',
+ //        //         '</div>'
+ //        //     ].join('\n')
+ //        //   },
+ //        //   engine: Handlebars
+ //        // });
         skill_number++;
     });
 	});
