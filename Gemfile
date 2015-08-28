@@ -52,11 +52,11 @@ group :development, :test do
 
   gem 'rspec-rails'
   gem 'rspec'
-  gem 'factory_girl_rails'
+  
   gem 'pry'
   gem 'pry-nav'
 end
-
+gem 'factory_girl_rails'
 group :test do
   gem 'minitest'
   gem 'database_cleaner'
