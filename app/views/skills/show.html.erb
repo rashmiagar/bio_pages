@@ -2,69 +2,47 @@
   <h4><%= @skill.name %></h4>
   <div><%= @skill.description %></div>
   
+
   <hr>
   <div class="row">
-  <div class="col-lg-6">
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      Masters
-    </div>
-    <div class="panel-body">
-      <div class="table-responsive">
-        <table class="table table-striped table-bordered">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Designation</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% for user in @skill.masters %>
-  		        <tr>
-  		  	      <td><%= link_to user.name, show_bio_pic_page_path(user) %></td>
-  		  	      <td><%= user.email %></td>
-  		  	      <td><%= user.designation %></td>
-  		        </tr>
+    <% ["mastered", "learning"].each do |learning_level| %>
+      <div class="col-lg-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <span><%= learning_level == "mastered" ? "Masters" : "Learners" %></span>
+        </div>
+        <div class="panel-body">
+          <div class="table-responsive">
+            <% instance_variable_set("@#{learning_level}_users", @skill.user_with_skill_learning_level(learning_level))%> 
+            <% if instance_variable_get("@#{learning_level}_users").present? %>
+              <table class="table table-striped table-bordered">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Designation</th>
+                  </tr>
+                </thead>
+                  <% for user in instance_variable_get("@#{learning_level}_users") %>
+                  <%# binding.pry %>
+                    <% if user.present? %>
+                    <tr>
+                      <td><%= link_to user.name, show_bio_pic_page_path(user) %></td>
+                      <td><%= user.email %></td>
+                      <td><%= user.designation %></td>
+                    </tr>
+                    <% end %>
+                 <% end %>
+              </tbody>
+              </table>
+            <% else %>
+              <p>There are no users who <%= learning_level == "mastered" ? "have mastered" : "are learning" %> this skill.</p>
             <% end %>
-  		  </tbody>
-        </table>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
-
-  <div class="col-lg-6">
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      Learners
-    </div>
-    <div class="panel-body">
-      <div class="table-responsive">
-        <table class="table table-striped table-bordered">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Designation</th>
-            </tr>
-          </thead>
-            <% for user in @skill.learners %>
-            <%# binding.pry %>
-              <% if user.present? %>
-  		        <tr>
-  		  	      <td><%= user.name %></td>
-  		  	      <td><%= user.email %></td>
-  		  	      <td><%= user.designation %></td>
-  		        </tr>
-              <% end %>
-  		     <% end %>
-  		  </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-</div>
+  <% end %>
 </div>
 <hr>
   <div class="row">

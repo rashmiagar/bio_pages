@@ -28,17 +28,8 @@ class Skill < ActiveRecord::Base
 		UserSkill.find_by_user_id_and_skill_id(user_id, self.id)
 	end
 
-	def masters
-	  self.users.each do |user|
-        user.user_skills.where(mastered:true)
-	  end
-	end
-
-	def learners
-		result = []
-	  self.users.each do |user|
-        result << user.user_skills.where(mastered:false)
-	  end
-	  return result
+	def user_with_skill_learning_level(learning_level)
+	  user_skills = UserSkill.where(:skill_id => self.id, :mastered => learning_level == "mastered" ? true : false)
+	  return User.where(:id => user_skills.flatten.map(&:user_id))
 	end
 end
