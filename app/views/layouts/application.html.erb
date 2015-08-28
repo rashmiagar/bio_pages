@@ -14,10 +14,17 @@
 	<% if signed_in? %>
 	  <%= render :partial => "layouts/header" %>
 	<% end %>
-  
-<%= yield %>
+  <div class="container">
+    <% if notice && params[:action] != "landing" %>
+      <div class= "alert alert-warning">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <%= notice %>
+      </div>
+    <% end %>
+  </div>
+  <%= yield %>
 
-<%= render :partial => "layouts/footer" %>
+  <%= render :partial => "layouts/footer" %>
 
 </body>
 </html>

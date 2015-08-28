@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
   def authenticate
     if signed_in?
     else
-      redirect_to user_session_new_url, :notice => "Please Sign in."
+      redirect_to root_url, :notice => "Please Sign in."
     end
   end
 
@@ -38,9 +38,10 @@ class ApplicationController < ActionController::Base
   private
 
   def authorize
-    unless signed_in?
-      flash[:danger] = "You need to sign in before continuing"
-      redirect_to root_url
+    
+    unless signed_in? && params[:id].to_i == current_user.id
+      
+      redirect_to root_url, :notice => "Permission Denied!!" 
     end
   end
 end

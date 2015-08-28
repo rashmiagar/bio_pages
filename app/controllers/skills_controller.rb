@@ -61,7 +61,7 @@ class SkillsController < ApplicationController
 
 	def typeahead
     	puts "In controller ***********"
-      render json: Skill.where('name ilike ?', "%#{params[:q]}%").where("category_id = ?", params[:category_id].to_i).pluck(:name)
+      	render json: Skill.where('name ilike ?', "%#{params[:q]}%").where("category_id = ?", params[:category_id].to_i).pluck(:name)
     end
 
 	private 

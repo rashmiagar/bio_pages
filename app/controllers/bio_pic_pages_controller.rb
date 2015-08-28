@@ -1,10 +1,10 @@
 class BioPicPagesController < ApplicationController
-  before_filter :authorize
+  before_filter :authenticate
+  before_filter :authorize, :only => [:edit, :update]
 
   before_action :set_user
 
   def edit
-  	@user = User.find(params[:id])
   	@projects = Project.all_except(@user.projects)
     @autocomplete_items = Skill.pluck(:name)
   end
@@ -16,7 +16,6 @@ class BioPicPagesController < ApplicationController
   end
   
   def update
-  	@user = User.find(params[:id])
     @user.update_columns({:designation => params["bio_pic_pages"]["user"]["designation"], :education_qualification => params["bio_pic_pages"]["user"]["education_qualification"]})
 
   	skills = params[:bio_pic_pages][:user_skills]
@@ -56,7 +55,8 @@ class BioPicPagesController < ApplicationController
  private
  def set_user
  	@user = User.find_by_id(params[:id])
- 	redirect_to root_url, :notice => "Invalid User ID" if @user.nil?
+ 	
+  redirect_to show_bio_pic_page_path(current_user.id), :notice => "Invalid User ID" if @user.nil?
  end
 
  def project_params
