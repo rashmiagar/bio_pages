@@ -7,7 +7,7 @@ class UserSkill < ActiveRecord::Base
 	validates :mastered, :inclusion => {:in => [true, false]}
 
 	#validates :description, :presence => true
-	validates_uniqueness_of :user_id, scope: :skill_id, :message => "User has already has this skill in his/her skill set."
+	validates_uniqueness_of :user_id, scope: :skill_id, :message => "has already has this skill in his/her skill set."
 
 	 scope :masters, -> {where(:mastered => true)}
 	 scope :learners, -> {where(:mastered => false)}
