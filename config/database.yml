@@ -24,5 +24,8 @@ test:
   database: biopages_test
 
 production:
-  <<: *default
-  database: biopages_production
+  host: "ec2-54-197-230-210.compute-1.amazonaws.com"
+  database: "dfe6gintqckjk1"
+  username: "firrlcgkukkrie"
+  port: 5432
+  password: "gS5jKpx6eV1vSw6gkOUZJ1A8C_"
