@@ -25,12 +25,12 @@ class BioPicPagesController < ApplicationController
       skills.each do |key, value|
         name = value["name"]
         skill_db_object = Skill.find_by_name(name)
-        #binding.pry
-        if !skill_db_object.present? && name.present? 
+        
+        if !skill_db_object.present? && name.present?
          # binding.pry
           skill = Skill.create(name: name, :category_id => value["category_id"].to_i)
           @user.user_skills.create!(:skill_id => skill.id, :mastered => value["mastered"], :description => value["description"])
-        else
+        elsif skill_db_object.present? && name.present?
           @user.user_skills.create!(:skill_id => skill_db_object.id, :mastered => value["mastered"], :description => value["description"])
 
         end
