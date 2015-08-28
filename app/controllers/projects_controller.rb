@@ -11,7 +11,7 @@ class ProjectsController < ApplicationController
 	end
 
 	def create
-		# binding.pry
+		@projects = Project.all_except(current_user.projects)
 		@project = Project.new(project_params)
 		@project.save
 		respond_to do |format|
