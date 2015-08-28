@@ -45,47 +45,34 @@
   <% end %>
 </div>
 <hr>
-  <div class="row">
+<div class="row">
   <div class="panel panel-default">
     <div class="panel-heading">
       Projects using <%= @skill.name %>
     </div>
     <div class="panel-body">
       <div class="table-responsive">
-        <table class="table table-striped table-bordered">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Description</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% for project in @skill.projects %>
-  		        <tr>
-  		  	      <td><%= link_to project.name, project_path(project) %></td>
-  		  	      <td><%= project.description %></td>
-  		        </tr>
-  		      <% end %>
-  		    </tbody>
-        </table>
+        <% if @skill.projects.present? %>
+          <table class="table table-striped table-bordered">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% for project in @skill.projects %>
+                <tr>
+                  <td><%= link_to project.name, project_path(project) %></td>
+                  <td><%= project.description %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        <% else %>
+          <p>There are no projects which are using this skill</p>
+        <% end %>           
       </div>
     </div>
   </div>
 </div>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
