@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
 
   helper_method :signed_in?, :current_user
 
+  before_action :authenticate, :except => :landing
   def current_user
   	@current_user ||= User.find_by(id: session[:user_id])
   end
