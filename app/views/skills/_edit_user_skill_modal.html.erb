@@ -3,7 +3,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <% user_skill = UserSkill.find(user_skill_id) %>
-        <h4>Edit User Skill: <%= user_skill.skill.name.capitalize %></h4>
+        <h4>Edit User Skill: <%= user_skill.skill.name.titleize %></h4>
       </div>
       <div style="clear:both;"></div>
 

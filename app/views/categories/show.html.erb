@@ -5,7 +5,7 @@
 <div class="panel-body">
 <ul id="skills_pane"> 
 <% for skill in @skills %>
-  <li id= <%= skill.id %> > <%= link_to "#{skill.name}", skill_path(skill) %> <!--#myModal-->
+  <li id= <%= skill.id %> > <%= link_to skill.name.titleize, skill_path(skill) %> <!--#myModal-->
   </li>
 <% end %>
 </ul>
