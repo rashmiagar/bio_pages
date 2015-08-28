@@ -31,3 +31,8 @@
 .form-submit-message{
 	color: green;
 }
+
+.form-horizontal .form-group {
+	margin-left: 0px !important;
+	margin-right: 0px !important;
+}
