@@ -2,9 +2,9 @@
 
 FactoryGirl.define do
   factory :project do
-    name "MyString"
-    description "MyString"
-    client "MyString"
+    name "Scripbox"
+    description "Mutual fund portal"
+    client "Scripbox"
     date_started "2015-08-03"
 
     factory :invalid_project do
