@@ -5,4 +5,16 @@ class Project < ActiveRecord::Base
 	validates :description, :presence => true
 
 	scope :all_except, ->(projects) { where.not(id: projects)}
+
+  before_save :downcase_name
+
+  def self.search(query)
+    where("name like ?", "%#{query}%")
+  end
+
+  private
+
+  def downcase_name
+    self.name = name.downcase
+  end
 end
