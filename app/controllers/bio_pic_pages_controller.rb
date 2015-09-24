@@ -2,7 +2,7 @@ class BioPicPagesController < ApplicationController
   before_filter :authenticate
   before_filter :authorize, :only => [:edit, :update]
 
-  before_action :set_user
+  before_action :set_user, :except => [:add_skill_field_form_row]
 
   def edit
   	@projects = Project.all_except(@user.projects)
@@ -19,17 +19,17 @@ class BioPicPagesController < ApplicationController
     @user.update_columns({:designation => params["bio_pic_pages"]["user"]["designation"], :education_qualification => params["bio_pic_pages"]["user"]["education_qualification"]})
 
   	skills = params[:bio_pic_pages][:user_skills]
-
     # has_many through
   	begin
       skills.each do |key, value|
-        name = value["name"]
+        name = value["name"] == "no existing match" ? "" : value["name"]
         skill_db_object = Skill.find_by_name(name.try(:downcase))
         if !skill_db_object.present? && name.present?
-         # binding.pry
+          
           skill = Skill.create(name: name.downcase, :category_id => value["category_id"].to_i)
           @user.user_skills.create!(:skill_id => skill.id, :mastered => value["mastered"], :description => value["description"])
-        elsif skill_db_object.present? && name.present?
+        elsif skill_db_object.present? && name.present? && UserSkill.find_by_skill_id_and_user_id(skill_db_object.id, current_user.id).nil?
+
           @user.user_skills.create!(:skill_id => skill_db_object.id, :mastered => value["mastered"], :description => value["description"])
 
         end
@@ -51,6 +51,12 @@ class BioPicPagesController < ApplicationController
     end
   end
 
+  def add_skill_field_form_row
+    @search_field_number = params[:row_number]
+    respond_to do |format|
+      format.js
+    end
+  end
  private
  def set_user
  	@user = User.find_by_id(params[:id])
