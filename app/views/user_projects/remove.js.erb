@@ -1,0 +1,7 @@
+$(document).ready(function(){
+	<% if current_user.projects.empty? %>
+		$('.user-projects').html('<p>User is not a member of any project.</p>');
+	<% else %>		
+		$("#user_project_table_row_<%= @project.id %>").remove();
+	<% end %>
+});
