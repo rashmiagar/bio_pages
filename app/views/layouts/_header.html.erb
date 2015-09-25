@@ -18,6 +18,12 @@
             <li><a href="/projects">Projects</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
+            <li>
+              <%= form_tag search_result_path do %>
+                <input type="text" id="search" name = "header_search" placeholder="Search..." />
+                <!-- <button class="btn" type="submit"<i class="icon-search"></i></button> -->
+              <% end %>
+            </li>
             <li class="dropdown pull-right">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">User<span class="caret"></span></a>
               <ul class="dropdown-menu">

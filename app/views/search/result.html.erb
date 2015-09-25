@@ -1,0 +1,36 @@
+<h2>
+  Skills Results</h2>
+<% if @skills.present? %>
+    <% for skill in @skills %>
+      <li>
+        <%= link_to skill.name, skill_path(skill) %>
+      </li>
+    <% end %>
+  <% else %>
+    No Results
+  <% end %>
+
+<h2>
+  User Results</h2>
+  <% if @users.present? %>
+    <% for user in @users %>
+      <li>
+        <%= link_to user.name, show_bio_pic_page_path(user) %>
+      </li>
+    <% end %>
+  <% else %>
+    No Results
+  <% end %>
+
+<h2>
+  Project Results
+</h2>
+<% if @projects.present? %>
+    <% for project in @projects %>
+      <li>
+        <%= link_to project.name, project_show_path(project) %>
+      </li>
+    <% end %>
+  <% else %>
+    No Results
+  <% end %>

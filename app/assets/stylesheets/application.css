@@ -28,11 +28,18 @@
 	margin-left: 0;
 }
 
-.form-submit-message{
+.form-submit-message {
 	color: green;
 }
 
 .form-horizontal .form-group {
 	margin-left: 0px !important;
 	margin-right: 0px !important;
+}
+
+#search {
+  margin-top: 10px;
+  height: 35px;
+  padding-right: 20px;
+  margin-right: 50px;
 }

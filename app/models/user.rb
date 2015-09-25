@@ -12,4 +12,10 @@ class User < ActiveRecord::Base
 		message: "not an email" }
 
   accepts_nested_attributes_for :skills, :user_skills, :projects
+
+  before_save { self.name = name.downcase}
+
+  def self.search(query)
+    where("name like ?", "%#{query}%")
+  end
 end
