@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   get '/projects/:id', :to => 'projects#show', :as => :project_show
   get '/skills', :to => 'skills#index', :as => :skills_index
   delete '/user-skills/:id/remove', :to => 'user_skills#destroy', :as => :remove_user_skill
-  delete '/sessions', :to => 'sessions#destroy', :as => :destroy_session HEAD
+  delete '/sessions', :to => 'sessions#destroy', :as => :destroy_session
   delete '/users/projects/:id/remove', :to => 'user_projects#remove', :as => :remove_user_project
 
   get 'skills/autocomplete_skill_name'
