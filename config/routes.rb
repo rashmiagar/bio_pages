@@ -15,7 +15,6 @@ Rails.application.routes.draw do
   get 'skills/autocomplete_skill_name'
 
   get '/add-skill-field-form-row/:row_number', :to => 'bio_pic_pages#add_skill_field_form_row', :as => :add_skill_field_form_row
-  # get '/skills-search-autocomplete' => 'skills#skill_search_autocomplete', :as => :skill_search_autocomplete
 
   post '/user-skills/:id/update', :to => 'user_skills#update', :as => :update_user_skill
 
