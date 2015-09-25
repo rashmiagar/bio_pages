@@ -1,36 +1,84 @@
-<h2>
-  Skills Results</h2>
-<% if @skills.present? %>
-    <% for skill in @skills %>
-      <li>
-        <%= link_to skill.name, skill_path(skill) %>
-      </li>
-    <% end %>
+<div class="container">
+  <h2>Skill Results</h2>
+  <% if @skills.present? %>
+    <table class="table">
+      <thead>
+        <tr>
+          <th width="10%">#</th>
+          <th width="30%">Skill Name</th>
+          <th width="30%">Description</th>
+          <th width="30%">Category</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @skills.each_with_index do |skill, index| %>
+          <tr>
+            <th scope="row"><%= index + 1 %></th>
+            <td><%= link_to skill.name.titleize, skill_path(skill) %></td>
+            <td><%= skill.description %></td>
+            <td><%= skill.category.name %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
   <% else %>
     No Results
   <% end %>
+  <hr>
 
-<h2>
-  User Results</h2>
+  <h2>User Results</h2>
   <% if @users.present? %>
-    <% for user in @users %>
-      <li>
-        <%= link_to user.name, show_bio_pic_page_path(user) %>
-      </li>
-    <% end %>
+    <table class="table">
+      <thead>
+        <tr>
+          <th width="10%">#</th>
+          <th width="30%">User Name</th>
+          <th width="30%">Designation</th>
+          <th width="30%">Education Qualification</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @users.each_with_index do |user, index| %>
+          <tr>
+            <th scope="row"><%= index + 1 %></th>
+            <td><%= link_to user.name.titleize, show_bio_pic_page_path(user) %></td>
+            <td><%= user.designation %></td>
+            <td><%= user.education_qualification %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
   <% else %>
     No Results
   <% end %>
+  <hr>
 
-<h2>
-  Project Results
-</h2>
-<% if @projects.present? %>
-    <% for project in @projects %>
-      <li>
-        <%= link_to project.name, project_show_path(project) %>
-      </li>
-    <% end %>
+
+  <h2>Project Results</h2>
+  <% if @projects.present? %>
+    <table class="table">
+      <thead>
+        <tr>
+          <th width="10%">#</th>
+          <th width="30%">Project Name</th>
+          <th width="30%">Description</th>
+          <th width="30%">Client</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @projects.each_with_index do |project, index| %>
+          <tr>
+            <th scope="row"><%= index + 1 %></th>
+            <td><%= link_to project.name.titleize, project_show_path(project) %></td>
+            <td><%= project.description %></td>
+            <td><%= project.client %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
   <% else %>
     No Results
   <% end %>
+  <br />
+  <br />
+</div>  

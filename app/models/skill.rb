@@ -17,7 +17,7 @@ class Skill < ActiveRecord::Base
 
     #scope :masters, -> includes(:users).where("users.user_skills.where(mastered => true)}
 
-	# before_save :generate_code, :downcase_name
+	# before_save :generate_code
 	before_save { self.name = name.downcase }
 
 	def generate_code
@@ -36,6 +36,6 @@ class Skill < ActiveRecord::Base
 	end
 
 	def self.search(query)
-		where('name like ?', "%#{query}%")
+		eager_load(:category).where('skills.name like ?', "%#{query}%")
 	end
 end
