@@ -53,7 +53,7 @@ class BioPicPagesController < ApplicationController
 
  private
  def set_user
- 	@user = User.find_by_id(params[:id])
+ 	@user = User.eager_load(:skills => [:user_skills, :category]).where(:users => {:id => params[:id]}).first
  	
   redirect_to show_bio_pic_page_path(current_user.id), :notice => "Invalid User ID" if @user.nil?
  end

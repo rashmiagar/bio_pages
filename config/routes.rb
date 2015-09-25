@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   get '/skills', :to => 'skills#index', :as => :skills_index
   delete '/user-skills/:id/remove', :to => 'user_skills#destroy', :as => :remove_user_skill
   delete '/sessions', :to => 'sessions#destroy', :as => :destroy_session
+  delete '/users/projects/:id/remove', :to => 'user_projects#remove', :as => :remove_user_project
   get 'typeahead' => 'skills#typeahead'
 
   post '/user-skills/:id/update', :to => 'user_skills#update', :as => :update_user_skill
