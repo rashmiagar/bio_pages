@@ -14,7 +14,7 @@
 		<tbody>
 			<% @projects.each do |project| %>
 	  			<tr>
-		            <td><%= link_to project.name, project_show_url(project.id) %></td>
+		            <td><%= link_to project.name.titleize, project_show_url(project.id) %></td>
 		            <td><%= project.description %></td>
 		            <td><%= project.date_started %></td>
 		            <td><%= project.client %></td>
