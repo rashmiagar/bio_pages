@@ -1,5 +1,5 @@
 class SkillsController < ApplicationController
-	
+	autocomplete :skill, :name, :full => true
 	def index 
 		@skills = Skill.all
 		@hash = @skills.group_by(&:category)
@@ -58,21 +58,10 @@ class SkillsController < ApplicationController
 		redirect_to :action => :index
 	end
 
-	def typeahead
-    	puts "In controller ***********"
-      	render json: Skill.where('name ilike ?', "%#{params[:q]}%").where("category_id = ?", params[:category_id].to_i).pluck(:name)
-    end
-
 	private 
 
 	def skill_params
 		params.require(:skill).permit(:name, :category_id)
 	end 
-
-
-	# def typeahead
- #     render json: Skill.where(name: params[:query])
- #    end
-
 
 end

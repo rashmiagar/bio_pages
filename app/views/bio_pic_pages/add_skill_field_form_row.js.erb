@@ -1,0 +1,4 @@
+$('.skill_div').append('<%= j render :partial => "skill_fields_row", :locals => {:skill_form_row_number => "#{@search_field_number}"} %>');
+$('#bio_pic_pages_user_skills_<%= (@search_field_number.to_i + 1).to_s %>_name').bind('railsAutocomplete.select', function(event, data){
+    });
+$("a#add_more_skills").attr("href", "<%= add_skill_field_form_row_path((@search_field_number.to_i + 1).to_s) %>")

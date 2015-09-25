@@ -1,7 +1,7 @@
 $(document).ready(function(){
 	<% if @project.id.present? %>
 		$('.skills-section-projects-dropdown').html("<% @projects.each do |project| %><option value = '<%= project.id %>'><%= project.name %></option><% end %>");
-		$('.projects-select-box').html('<%= j select_tag("bio_pic_pages[user_projects]", options_from_collection_for_select(@projects, :id, :name), multiple: true, :prompt => "Select", :class => "form-control skills-section-projects-dropdown") %>');
+		$('.projects-select-box').html('<%= j select_tag("bio_pic_pages[user_projects]", options_from_collection_for_select(@projects, :id, :name), multiple: true, :class => "form-control skills-section-projects-dropdown") %>');
 		$('.form-submit-message').html('Project successfully created');
 	<% else %>
 		$('.form-submit-message').html('Project creation failed<ul><%@project.errors.full_messages.each do |full_message|%><li><%= full_message %></li><% end %></ul>');

@@ -10,9 +10,12 @@ Rails.application.routes.draw do
   get '/projects/:id', :to => 'projects#show', :as => :project_show
   get '/skills', :to => 'skills#index', :as => :skills_index
   delete '/user-skills/:id/remove', :to => 'user_skills#destroy', :as => :remove_user_skill
-  delete '/sessions', :to => 'sessions#destroy', :as => :destroy_session
+  delete '/sessions', :to => 'sessions#destroy', :as => :destroy_session HEAD
   delete '/users/projects/:id/remove', :to => 'user_projects#remove', :as => :remove_user_project
-  get 'typeahead' => 'skills#typeahead'
+
+  get 'skills/autocomplete_skill_name'
+
+  get '/add-skill-field-form-row/:row_number', :to => 'bio_pic_pages#add_skill_field_form_row', :as => :add_skill_field_form_row
 
   post '/user-skills/:id/update', :to => 'user_skills#update', :as => :update_user_skill
   post '/search/results', :to => 'search#search_results', :as => :search_result
