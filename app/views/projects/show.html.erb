@@ -61,7 +61,7 @@
     		<tbody>
                 <% @project.users.each do |user| %>
                     <tr>
-                        <td><%= link_to user.name, show_bio_pic_page_path(user.id) %></td>
+                        <td><%= link_to user.name.titleize, show_bio_pic_page_path(user.id) %></td>
                     	<td><%= user.email %></td>
                     	<td><%= user.designation %></td>
                     	<td><%= user.education_qualification %></td>

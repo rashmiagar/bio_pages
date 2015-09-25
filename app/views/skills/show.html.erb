@@ -27,7 +27,7 @@
                   <%# binding.pry %>
                     <% if user.present? %>
                     <tr>
-                      <td><%= link_to user.name, show_bio_pic_page_path(user) %></td>
+                      <td><%= link_to user.name.titleize, show_bio_pic_page_path(user) %></td>
                       <td><%= user.email %></td>
                       <td><%= user.designation %></td>
                     </tr>
@@ -63,7 +63,7 @@
             <tbody>
               <% for project in @skill.projects %>
                 <tr>
-                  <td><%= link_to project.name, project_path(project) %></td>
+                  <td><%= link_to project.name.capitalize, project_path(project) %></td>
                   <td><%= project.description %></td>
                 </tr>
               <% end %>
