@@ -13,15 +13,9 @@ class User < ActiveRecord::Base
 
   accepts_nested_attributes_for :skills, :user_skills, :projects
 
-  before_save :downcase_name
+  before_save { self.name = name.downcase}
 
   def self.search(query)
     where("name like ?", "%#{query}%")
-  end
-  
-  private
-  
-  def downcase_name
-    self.name = name.downcase
   end
 end

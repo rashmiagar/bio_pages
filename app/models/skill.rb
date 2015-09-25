@@ -17,7 +17,8 @@ class Skill < ActiveRecord::Base
 
     #scope :masters, -> includes(:users).where("users.user_skills.where(mastered => true)}
 
-	before_save :generate_code, :downcase_name
+	# before_save :generate_code, :downcase_name
+	before_save { self.name = name.downcase }
 
 	def generate_code
 		#all CAPS and snake case of name attribute
@@ -36,9 +37,5 @@ class Skill < ActiveRecord::Base
 
 	def self.search(query)
 		where('name like ?', "%#{query}%")
-	end
-
-	def downcase_name
-		self.name = name.downcase
 	end
 end
