@@ -10,7 +10,6 @@ class BioPicPagesController < ApplicationController
   end
 
   def show
-
   	@user_mastered_skills = @user.skills.group_by{|skill| skill.user_skill(@user.id).mastered}[true]
   	@user_learning_skills = @user.skills.group_by{|skill| skill.user_skill(@user.id).mastered}[false]
   end

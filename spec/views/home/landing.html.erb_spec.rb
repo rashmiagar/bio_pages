@@ -1,5 +1,9 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe "home/landing.html.erb" do
-  pending "add some examples to (or delete) #{__FILE__}"
+RSpec.describe "home/landing", :type => :view do
+  it "should display correct heading on page if no user is logged in" do
+    render
+    expect(rendered).to include("Cyborg Skills Profile")
+  end
 end
+
