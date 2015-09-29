@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe HomeController do
+RSpec.describe HomeController, :type => :controller do
 
   describe "GET 'landing'" do
     it "returns http success" do

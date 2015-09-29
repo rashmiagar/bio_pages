@@ -1,47 +1,65 @@
 require 'spec_helper'
 
-describe Project do
+RSpec.describe Project, :type => :model do
   describe "validations" do
   	context "when project is created without a name" do
-  		it "should not be valid" do
-  			project = FactoryGirl.build(:project, :name => nil)
+  		project = FactoryGirl.build(:project, :name => nil)
+      before do
+        project.valid?
+      end
+
+      it "should not be valid" do
   			expect(project).to_not be_valid
-  			expect(project.errors_on(:name)).to include("can't be blank")
+      end
+
+      it "should have name as a key in error messages" do
+   			expect(project.errors.full_messages).to include("Name can't be blank")
   		end
   	end
 
   	context "when project is created without a description" do
-  		it "should not be valid" do
-  			project = FactoryGirl.build(:project, :description => nil)
+      project = FactoryGirl.build(:project, :description => nil)
+  		
+      before do
+        project.valid?
+      end
+
+      it "should not be valid" do
   			expect(project).to_not be_valid
-  			expect(project.errors_on(:description)).to include("can't be blank")
+  		end
+
+      it "should have description as a key in error messages" do
+        expect(project.errors.full_messages).to include("Description can't be blank")
   		end
   	end
 
   	context "when project is created without a client" do
-  		it "should be valid" do
-  			project = FactoryGirl.build(:project, :client => nil)
+      project = FactoryGirl.build(:project, :client => nil)
+      it "should be valid" do
   			expect(project).to be_valid
   		end
   	end
 
   	context "when project is created with a client" do
-  		it "should be valid" do
-  			project = FactoryGirl.build(:project)
+      project = FactoryGirl.build(:project)
+  		
+      it "should be valid" do
   			expect(project).to be_valid
   		end
   	end
 
   	context "when project is created without a start date" do
-  		it "should be valid" do
-  			project = FactoryGirl.build(:project, :date_started => nil)
+      project = FactoryGirl.build(:project, :date_started => nil)
+  		
+      it "should be valid" do
   			expect(project).to be_valid
   		end
   	end
 
   	context "when project is created with a start date" do
-  		it "should be valid" do
-  			project = FactoryGirl.build(:project)
+      project = FactoryGirl.build(:project)
+  		
+      it "should be valid" do
   			expect(project).to be_valid
   		end
   	end

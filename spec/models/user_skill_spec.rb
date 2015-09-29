@@ -1,18 +1,37 @@
 describe UserSkill do
 	describe "associations" do
-		#user = FactoryGirl.build(:user)
-		let(:user_skill) {FactoryGirl.build(:invalid_user_skill)} 
-		it "should belong to user" do
-			#user_skill.user = nil
-			user_skill.should_not be_valid
-			expect(user_skill).to have(1).errors_on(:user_id)
-			expect(user_skill.errors_on(:user_id)).to include("can't be blank")
+		context "When created without user id" do
+			let(:user_skill) {FactoryGirl.build(:user_skill, :user_id => nil)} 
+			
+			before do
+				user_skill.valid?
+			end
+
+			it "shouldn't be valid" do
+				expect(user_skill).to_not be_valid
+			end
+
+			it "should have proper error messages" do
+				expect(user_skill.errors.full_messages).to include("User can't be blank")
+			end
 		end
-		it "should belong to skill" do
-			#user_skill = UserSkill.new(:skill => nil)
-			user_skill.should_not be_valid
-			expect(user_skill.errors_on(:skill_id)).to include("can't be blank")
+
+		context "When created without skill id" do
+			let(:user_skill) {FactoryGirl.build(:user_skill, :skill_id => nil)} 
+			
+			before do
+				user_skill.valid?
+			end
+
+			it "shouldn't be valid" do
+				expect(user_skill).to_not be_valid
+			end
+
+			it "should have proper error messages" do
+				expect(user_skill.errors.full_messages).to include("Skill can't be blank")
+			end
 		end
+		
 		context "should belong to one user and one skill" do
 			before(:each) do
 				@user = FactoryGirl.create(:user)
@@ -36,21 +55,20 @@ describe UserSkill do
 	end
 
 	describe "validations" do 
-		context "when a user_skill is created without a mastered attribute" do
-			it "should not be valid" do
-				user_skill = FactoryGirl.build(:user_skill, :mastered => nil)
-				expect(user_skill).to_not be_valid
-				expect(user_skill).to have(1).errors_on(:mastered) 
-				expect(user_skill.errors_on(:mastered)).to include("can't be blank")
+		
+		context "When created without mastered" do
+			let(:user_skill) {FactoryGirl.build(:user_skill, :mastered => nil)} 
+			
+			before do
+				user_skill.valid?
 			end
-		end
 
-		context "when a user_skill is created without a description" do
-			it "should not be valid" do
-				pending
-				# user_skill = UserSkill.new(:description => nil)
-				# expect(user_skill).to have(1).errors_on(:description)
-				# expect(user_skill.errors_on(:description)).to include("can't be blank")
+			it "shouldn't be valid" do
+				expect(user_skill).to_not be_valid
+			end
+
+			it "should have proper error messages" do
+				expect(user_skill.errors.full_messages).to include("Mastered is not included in the list")
 			end
 		end
 	end

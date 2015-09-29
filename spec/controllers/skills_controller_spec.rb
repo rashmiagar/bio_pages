@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-describe SkillsController do
+RSpec.describe SkillsController, :type => :controller do
 	before :each do
 		@user = FactoryGirl.create(:user)
-		set_user_session @user
+		session[:user_id] = @user.id
 	end
 	
 	describe "GET #index" do

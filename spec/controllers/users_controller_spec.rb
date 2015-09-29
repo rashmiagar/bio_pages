@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-describe UsersController do
+RSpec.describe UsersController, :type => :controller do
 	before :each do
 		@user = FactoryGirl.create(:user)
-		set_user_session @user
+		session[:user_id] = @user.id
 	end
 
 	describe "GET #index" do
@@ -127,9 +127,8 @@ describe UsersController do
 			end
 
 			it "updates the user in the database" do
-				# put :update, id: user1.id, user: FactoryGirl.attributes_for(:user, name: "R A")
 			
-				expect(user1.name).to eq("R A")
+				expect(user1.name).to eq("r a")
 			end
 
 			it "redirects to the updated user" do

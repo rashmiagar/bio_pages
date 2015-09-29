@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-describe ProjectsController do
+RSpec.describe ProjectsController, :type => :controller do
 	before :each do
 		@user = FactoryGirl.create(:user)
-		set_user_session @user
+		session[:user_id] = @user.id	
 	end
 
 	describe "GET #index" do
@@ -57,8 +57,8 @@ describe ProjectsController do
 		context "with valid attributes" do
 			it "saves the project in the database" do
 				expect{
-					post :create, project: FactoryGirl.attributes_for(:project), :format => :js
-				}.to change(Project, :count).by(1)	
+					post :create, project: FactoryGirl.attributes_for(:project), format: :js
+				}.to change(Project, :count).by(1)
 			end
 
 			it "assigns @project" do
@@ -122,7 +122,7 @@ describe ProjectsController do
 			it "updates the project in the database" do
 				put :update, id: project, project: FactoryGirl.attributes_for(:project, name: "Earningscast")
 				project.reload
-				expect(project.name).to eq("Earningscast")
+				expect(project.name).to eq("earningscast")
 			end
 
 			it "redirects to the updated project" do

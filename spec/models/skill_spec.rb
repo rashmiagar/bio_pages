@@ -25,15 +25,23 @@ end
 
 
 
-describe Skill do
+RSpec.describe Skill, :type => :model do
   describe "validations" do
   	let(:skill) { FactoryGirl.build(:skill) }
   	context "when skill is created without a name" do
-  		it "should not be valid" do
-  			skill.name = nil
-  			expect(skill).to have(1).errors_on(:name)
-  			expect(skill.errors_on(:name)).to include("can't be blank")
+        		
+      before do
+        skill.name = nil
+        skill.valid?
+      end
+
+      it "should not be valid" do
+  			expect(skill).not_to be_valid
   		end
+
+      it "should have proper error messages on name attribute" do
+        expect(skill.errors.full_messages).to include("Name can't be blank")
+      end
   	end
 
   	context "when skill is created without a description" do
@@ -50,37 +58,23 @@ describe Skill do
   	end
 
   	context "when skill is created without a category_id" do
-  		it "should not be valid" do
-  			skill.category = nil
-  			expect(skill.errors_on(:category_id)).to include("can't be blank")
+  		before do
+        skill.category = nil
+        skill.valid?
+      end
+
+      it "should not be valid" do
+  			expect(skill.errors.full_messages).to include("Category can't be blank")
   		end
   	end
 
   	context "when skill is created without a code" do
-  		it "should not be valid" do
-  			skill = FactoryGirl.create(:skill)
-  			expect(skill.code).to_not be_nil
+      skill = FactoryGirl.create(:skill)
+  		
+      it "should be valid" do
+  			expect(skill).to be_valid
   		end
   	end
-
-  	context "when skill is created with a code of correct format" do
-  		it "should be valid" do
-        skill = FactoryGirl.create(:skill)
-  			#skill.code = "RUBY_ON_RAILS"
-
-  			expect(skill.code).to eq("RUBY_ON_RAILS")
-  		end
-  	end
-
-  	# context "when skill is created with a code of wrong format" do
-  	# 	it "should not be valid" do
-   #      Skill.stub(:generate_code).and_return("RUBY ON RAILS")
-   #      skill = FactoryGirl.create(:skill, :code => "rubyonrails")
-    
-  	# 		expect(skill).to have(1).errors_on(:code)
-  	# 		#check error message
-  	# 	end
-  	# end
 
   	context "when skill is created without an abbreviation" do
   		it "should be valid" do
@@ -98,6 +92,7 @@ describe Skill do
 
   describe "associations" do
     let(:skill) { FactoryGirl.build(:skill) }
+    
     it "should have many relations with users" do
       make_skills_with_users(:name => "Ruby on rails", :category_id => 1).users.size.should == 3
     end

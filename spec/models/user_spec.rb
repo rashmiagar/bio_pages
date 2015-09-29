@@ -11,7 +11,7 @@ def make_user_with_skills(attrs = {})
 	return user
 end
 
-describe User do
+RSpec.describe User, :type => :model do
 	describe "validations" do
 		let(:user) {FactoryGirl.build(:user)}
 		context 'when a user is created with a valid name and email' do
@@ -21,63 +21,64 @@ describe User do
 		end
 		
 		context 'when a user is created without a name' do
-			it 'should not be valid' do
+			before do
  				user.name=nil
- 				expect(user).to have(1).errors_on(:name)
+				user.valid?
+			end				
+			
+			it 'should not be valid' do
+ 				expect(user).to_not be_valid
+ 			end
+
+ 			it "should show proper error messages on name atrribute" do
+ 				expect(user.errors.full_messages).to include("Name can't be blank")
 			end
 		end
 
 		context 'when a user is created with a very long name (> 50 chars)' do
-		    it 'should not be valid' do
-		    	#str  = ""
-		    	#51.times{str = str+'a'}
+		    before do
 		    	user.name = 'a'*51
-		    	expect(user).to have(1).errors_on(:name)
+		    	user.valid?
 		    end
-		end
 
-		context 'when a duplicate email address is given' do
-			it 'should not be valid' do
-				joe = FactoryGirl.create(:user, name: "joe", email: "john@example.com")
-				john = FactoryGirl.build(:user, :email => joe.email)
-				expect(john).to have(1).errors_on(:email)
-				expect(john.errors_on(:email)).to include("has already been taken")
+		    it 'should not be valid' do
+		    	expect(user).to_not be_valid
+		    end
+		    it "should show proper error messages on name atrribute" do
+ 				expect(user.errors.full_messages).to include("Name is too long (maximum is 50 characters)")
 			end
-		end
-
-		context 'when a user is created with a not unique email (case insensitive)' do
-			it 'should not be valid' do
-				joe = FactoryGirl.create(:user, email: "John@example.com")
-				john = FactoryGirl.build(:user, :email => "john@example.com")
-				#expect(@john).to raise_error(ActiveRecord::RecordInvalid)
-				
-				expect(john).to have(1).errors_on(:email)
-				expect(john.errors_on(:email)).to include("has already been taken")
-			end
+		    	
 		end
 
 		context 'when a user is created without an email' do
-			it 'should not be valid' do
+			before do
 				user.email = nil
-				#expect(user).to have(1).errors_on(:email)
-				expect(user.errors_on(:email)).to include("can't be blank")
+				user.valid?
+			end
+
+			it 'should not be valid' do
+		    	expect(user).to_not be_valid
+			end
+
+			it "should have proper error messages on email atrribute" do
+				expect(user.errors.full_messages).to include("Email can't be blank")
 			end
 		end
 
 		context 'when a user is created with an invalid email' do
-			it 'should not be valid' do
+				
+			before do 
 				user.email = 'john.example.com'
-				expect(user).to have(1).errors_on(:email)
+				user.valid?
 			end
-		end
-	end
 
-	describe "relations" do
-		it "should have many relations with skills" do
-			make_user_with_skills(:name => "John", :email => "john@example.com").skills.size.should == 3
-		end
-		it "should habtm projects" do
-			should have_and_belong_to_many(:projects)
+			it 'should not be valid' do
+		    	expect(user).to_not be_valid
+			end
+			
+			it "should have proper error messages on email atrribute" do	
+				expect(user.errors.full_messages).to include("Email not an email")
+			end
 		end
 	end
 end

@@ -1,12 +1,20 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe CategoriesController do
+RSpec.describe CategoriesController, :type => :controller do
+	
+	before :each do
+		@user = FactoryGirl.create(:user)
+		session[:user_id] = @user.id
+	end
+
 	describe "GET #index" do
 		context "with valid attributes" do
+			let!(:category) { FactoryGirl.create(:category) }
+			# category = FactoryGirl.create(:category)
+			
 			it "populates an array of categorys" do
-				category = FactoryGirl.create(:category)
 				get :index
-				expect(assigns(:categories)).to match_array [category]
+				expect(assigns(:categories)).to include(category)
 			end
 
 			it "renders the index view" do
@@ -100,6 +108,7 @@ describe CategoriesController do
 
 	describe "PUT #update" do
 		let!(:category) { FactoryGirl.create(:category, name: "Programming Languages") }
+		# binding.pry
 		context "with valid attributes" do
 			it "locates the requested @category" do
 				put :update, id: category, category: FactoryGirl.attributes_for(:category)
@@ -119,14 +128,19 @@ describe CategoriesController do
 		end
 
 		context "with invalid attributes" do
-			it "does not update the category" do
-				put :update, id: category, category: FactoryGirl.attributes_for(:category, name: nil)
+			let(:attr) do
+				{:name => nil}
+			end
+			before do
+				put :update, id: category, category: attr
 				category.reload
+			end
+
+			it "does not update the category" do
 				expect(category.name).to_not be_nil
 			end
 
 			it "re-renders the edit page" do
-				put :update, id: category, category: FactoryGirl.attributes_for(:category, name: nil)
 				expect(response).to render_template("edit")
 			end
 		end

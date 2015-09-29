@@ -4,31 +4,38 @@ describe Category do
   describe "validations" do
   	let(:category) { FactoryGirl.build(:category) }
   	context "when category is created without a name" do
-  		it "should not be valid" do
-  			category.name = nil
-  			expect(category).to have(1).errors_on(:name)
-  			expect(category.errors_on(:name)).to include("can't be blank")
+      before do
+        category.name = nil
+  		  category.valid?
+      end
+
+      it "should not be valid" do
+        expect(category).to_not be_valid
+      end
+      it "should have proper error messages on name attribute" do
+  			expect(category.errors.full_messages).to include("Name can't be blank")
   		end
   	end
 
   	context "when category is created without a description" do
-  		it "should be valid" do
-  			category.description = nil
+      before do
+        category.description = nil
+        category.valid?
+      end
+
+      it "should be valid" do
   			expect(category).to be_valid
   		end
   	end
 
   	context "when category is created without a code" do
-  		it "should not be valid" do
-  			category = FactoryGirl.create(:category)
-  			expect(category.code).to_not be_nil
-  		end
-  	end
-
-  	context "when category is created with a code of wrong format" do
-  		it "should not be valid" do
-  			category = FactoryGirl.create(:category)
-  			expect(category.code).to eq("PROGRAMMING_LANGUAGES")
+      category = FactoryGirl.create(:category)
+      before do
+        category.code = nil
+        category.valid?
+      end  		
+      it "should be valid" do
+  			expect(category).to be_valid
   		end
   	end
   end
